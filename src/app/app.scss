@@ -14,3 +14,70 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.ion-tab-icon-base {    
+    width: 20px;    
+    height: 20px;    
+    padding: 0px 1px 1px;    
+  }    
+      
+  .ion-tab-icon-md-base {    
+    width: 25px;  
+    min-width: 25px !important;    
+    height: 25px;  
+  }    
+      
+  $tabImageName: 'tab1' 'tab2' 'tab3' 'tab4' 'tab5';    
+  @for $i from 1 to 6 {    
+    //for ios    
+    .ion-ios-tab-#{nth($tabImageName, $i)} {    
+      @extend .ion-tab-icon-base;  
+      content: url("../assets/icon/tabs/#{nth($tabImageName, $i)}_choosed.png");  
+    }    
+    .ion-ios-tab-#{nth($tabImageName, $i)}-outline {    
+      @extend .ion-tab-icon-base;  
+      content: url("../assets/icon/tabs/#{nth($tabImageName, $i)}.png");    
+    }    
+      
+    // for android    
+    .tabs-md .tab-button[aria-selected=true] {    
+      .ion-md-tab-#{nth($tabImageName, $i)} {    
+        @if $i == 1 {  
+          width: 23px;  
+          min-width: 23px !important;    
+          height: 23px;  
+        } @else if $i == 2{  
+          width: 25px;  
+          min-width: 25px !important;    
+          height: 20px;  
+          padding: 2px 1px 1px;  
+        } @else {  
+          @extend .ion-tab-icon-md-base;    
+        }  
+        content: url("../assets/icon/tabs/#{nth($tabImageName, $i)}_choosed.png");    
+      }    
+    }    
+    .tabs-md .tab-button[aria-selected=false] {    
+      .ion-md-tab-#{nth($tabImageName, $i)} {  
+        @if $i == 1 {  
+          width: 24px;  
+          min-width: 24px !important;    
+          height: 24px;  
+        } @else if $i == 2{  
+          width: 25px;  
+          min-width: 25px !important;    
+          height: 18px;  
+        } @else if $i == 3{  
+          width: 22px;  
+          min-width: 22px !important;    
+          height: 25px;  
+        } @else {  
+          @extend .ion-tab-icon-md-base;    
+        }  
+        content: url("../assets/icon/tabs/#{nth($tabImageName, $i)}.png");    
+      }    
+    }    
+  }  
+
+
+  @import "../pages/main-page/search-main/modal/previewDoc/previewDoc.modal.scss";
+  @import "../pages/main-page/search-main/modal/previewPDF/previewPDF.scss";

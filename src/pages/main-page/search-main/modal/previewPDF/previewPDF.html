@@ -1,0 +1,39 @@
+<ion-header>
+        <ion-navbar>
+            <ion-title>
+                PDFJS on IONIC
+            </ion-title>
+            <ion-buttons start>
+                <button ion-button (click)="dismiss()">
+                    <span ion-text color="primary" showWhen="ios">关闭</span>
+                    <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+    </ion-header>
+    
+    <ion-content padding>
+        <div #viewerContainer
+             class="viewer-container">
+            <div #viewer
+                 class="viewer">
+                <ng-container #pagesContainer>
+                    <div #pageContainer
+                         class="page"
+                         [style.width.px]="pageContainerUnique.width"
+                         [style.height.px]="pageContainerUnique.height">
+    
+                        <div class="canvas-wrapper"
+                             #canvasWrapper>
+                            <canvas class="page-canvas"
+                                    #canvas></canvas>
+    
+                        </div>
+                        <div #textContainer
+                             class="text-layer selectable">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </ion-content>

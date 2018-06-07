@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+                {{row.object_name}}
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary" showWhen="ios">Cancel</span>
+                <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+                <ion-list no-lines *ngFor="let attr of attrLists">
+                        <label for="">{{attr.displayName}} : </label>
+                        <span style="margin-right: 15px;
+                        float: right;" class="value" *ngIf="attr.inputMode != 2">
+                                {{(attr.inputMode == 5 || attr.inputMode == 6 || attr.inputMode == 8 || attr.inputMode == 10) ? attr.attrValues : attr.attrValue}}
+                              </span>
+                              <span class="value" *ngIf="attr.inputMode == 2 && attr.attrValue && !(attr.attrName == 'w_modify_time' && (row.r_object_type == 'wison_folder' || row.r_object_type == 'wison_prj_folder'))">
+                                {{attr.dateDisplayValue}}
+                              </span>
+                </ion-list>        
+        </ion-item>
+    </ion-list>
+</ion-content>

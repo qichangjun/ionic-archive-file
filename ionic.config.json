@@ -4,5 +4,15 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/edmsapi",
+      "proxyUrl": "http://kmdoc.wison.com/edmsapi"
+    },
+    {
+      "path": "/wisonsearchapi",
+      "proxyUrl": "http://kmdoc.wison.com/wisonsearchapi"
+    }
+  ]
 }
