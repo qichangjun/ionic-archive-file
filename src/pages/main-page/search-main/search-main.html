@@ -11,59 +11,57 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-refresher
+    pullingIcon="arrow-dropdown"
+    pullingText="下拉刷新"
+    refreshingSpinner="circles"
+    refreshingText="更新中..."
+    (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+            
+        </ion-refresher-content>
+        
+    </ion-refresher>
     <div class="main--wrap">
-        <div class="main--content--wrap">
-            <div class="search--wrap">
-                <div class="search--box clearfix">
-                    <div class="search-input--box">
-                        <!-- <ion-list radio-group [(ngModel)]="parameter.docbase" (ionChange)="parameter.parentId=0;parameter.currentPage=1;getList()">
-                            <ion-item>
-                                <ion-label>企业文档库</ion-label>
-                                <ion-radio value="wison_company" checked></ion-radio>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label>项目文档库</ion-label>
-                                <ion-radio value="wison_projects"></ion-radio>
-                            </ion-item>
-
-                        </ion-list> -->
-                        <!-- <button (click)="fullSearch()" ion-button full>搜索</button>                        -->
-
-                        <span>共{{parameter.totalCount}}个文件</span>
+            <div class="main--content--wrap">
+                <div class="search--wrap">
+                    <div class="search--box clearfix">
+                        <div class="search-input--box">                                               
+                            <span>共{{parameter.totalCount}}个文件</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div *ngIf="searchResults.length == 0">
-        无数据
-    </div>
+        <div *ngIf="searchResults.length == 0">
+            无数据
+        </div>
 
-    <div *ngIf="searchResults.length > 0">
-        <ion-list>
-            <ion-item *ngFor="let searchResult of searchResults" (click)="itemSelected(searchResult)">
-                <ion-avatar item-start>
-                    <img onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="searchResult.r_object_type != 'wison_prj_document'  && searchResult.r_object_type != 'wison_document' && !searchResult.a_content_type"
-                        src="assets/images/icon/{{searchResult.r_object_type}}.png" alt="">
-                    <img onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="(searchResult.r_object_type == 'wison_prj_document' || searchResult.r_object_type == 'wison_document') && searchResult.a_content_type"
-                        src="assets/images/icon/{{searchResult.a_content_type}}.png" alt="">
-                    <img class="data--list--doc--icon" *ngIf="(searchResult.r_object_type == 'wison_prj_document' || searchResult.r_object_type == 'wison_document') && !searchResult.a_content_type"
-                        src="assets/images/icon/unknown.png" alt="">
-                </ion-avatar>
-                <h2>
-                    {{searchResult.object_name}}
-                    <span style="float: right;" (click)="$event.stopPropagation();checkAttr(searchResult)">
-                        <ion-icon name="eye"></ion-icon>
-                    </span>
-                </h2>
+        <div *ngIf="searchResults.length > 0">
+            <ion-list>
+                <ion-item *ngFor="let searchResult of searchResults" (click)="itemSelected(searchResult)">
+                    <ion-avatar item-start>
+                        <img onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="searchResult.r_object_type != 'wison_prj_document'  && searchResult.r_object_type != 'wison_document' && !searchResult.a_content_type"
+                            src="assets/images/icon/{{searchResult.r_object_type}}.png" alt="">
+                        <img onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="(searchResult.r_object_type == 'wison_prj_document' || searchResult.r_object_type == 'wison_document') && searchResult.a_content_type"
+                            src="assets/images/icon/{{searchResult.a_content_type}}.png" alt="">
+                        <img class="data--list--doc--icon" *ngIf="(searchResult.r_object_type == 'wison_prj_document' || searchResult.r_object_type == 'wison_document') && !searchResult.a_content_type"
+                            src="assets/images/icon/unknown.png" alt="">
+                    </ion-avatar>
+                    <h2>
+                        {{searchResult.object_name}}
+                        <span style="float: right;" (click)="$event.stopPropagation();checkAttr(searchResult)">
+                            <ion-icon name="eye"></ion-icon>
+                        </span>
+                    </h2>
 
-                <p [innerHTML]="searchResult.a_status"></p>
-            </ion-item>
-        </ion-list>
+                    <p [innerHTML]="searchResult.a_status"></p>
+                </ion-item>
+            </ion-list>
 
-        <ion-infinite-scroll (ionInfinite)="changePage($event)">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-    </div>
+            <ion-infinite-scroll (ionInfinite)="changePage($event)">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </div>
 
 </ion-content>

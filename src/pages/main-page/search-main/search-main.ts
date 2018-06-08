@@ -89,4 +89,18 @@ export class searchMain {
         this.parameter.currentPage = 1;
         this.getList();
     }
+
+    async doRefresh(refresh){
+        try{
+            this.parameter.currentPage = 1
+            let res = await this._searchMainService.getList(this.parameter);            
+            this.parameter.totalCount = res.totalCount
+            this.pageCount = res.totalCount/20
+            this.pageCount =  Math.ceil(this.pageCount)
+            this.searchResults = res.resultSet
+            refresh.complete();
+        } catch(err){
+            refresh.complete();
+        }
+    }
 }
