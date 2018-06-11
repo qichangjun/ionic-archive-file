@@ -1,0 +1,61 @@
+.top--box{
+    .toolbar-ios{
+        padding: 10px 4px;
+        min-height: 52px;
+    }
+    .toolbar-ios ion-title{
+        padding: 0 10px 1px 50px;
+    }.toolbar-title-ios{
+        color: #ffffff;
+    }
+    .toolbar-background-ios{
+        background: #1D82D2;
+        border-bottom: transparent;
+    }
+    .bar-button-default-ios{
+        color: #ffffff;
+    }
+    .search--input{
+        color: #ffffff;
+        .searchbar-input{
+            background: #1973B9;
+            height: 2.3rem;
+            color: #ffffff;
+            &::-webkit-input-placeholder{
+                color: #ffffff;
+            }
+            &::-moz-placeholder{   /* Mozilla Firefox 19+ */
+                color: #ffffff;
+            }
+            &:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+                color: #ffffff;
+            }
+            &:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+                color: #ffffff;
+            }
+        }
+        .searchbar-search-icon{
+            top: 7px;
+        }
+    }
+}
+.scroll-content{
+    padding: 0 !important;  
+}
+.item--count--box{
+    // margin: -16px -16px 0;
+    padding: 10px 15px;
+    background: #F2F2F2;
+}
+.single--item--box{
+    border-bottom: 0.55px solid #e4e4e4;
+    &:first-child{
+        border-top: none !important;
+    }
+    .item-inner{
+        border-bottom: none !important;
+    }
+    .object--name{
+        margin-top: 0 !important;
+    }
+}

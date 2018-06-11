@@ -1,0 +1,26 @@
+.tabs--wrap{
+    .tabbar{
+        background: #1D82D2;
+        border-bottom: none !important;
+        .tab-button{
+            border-left: 1px solid rgba(255, 255, 255, .6);
+            border-bottom: 5px solid transparent;
+            padding-bottom: 1rem;
+            &:first-child{
+                border-left: none;
+            }
+        }
+        .tab-button[aria-selected=true]{
+            border-bottom: 5px solid #00CC33;
+            .tab-button-icon{
+                color: #fff;
+            }
+        }
+        .tab-button-icon{
+            color: #fff;
+        }
+        .tab-button-text{
+            color: #fff;
+        }
+    }
+}
