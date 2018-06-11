@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav,ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
@@ -15,12 +15,14 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(
+    public toastCtrl: ToastController,
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public _storageInfoService : storageInfoService
+    public _storageInfoService : storageInfoService,
   ) {
     this.initializeApp();
+    console.log(1) 
   }
 
   initializeApp() {

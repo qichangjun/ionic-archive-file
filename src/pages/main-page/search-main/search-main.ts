@@ -91,7 +91,7 @@ export class searchMain {
     }
 
     async doRefresh(refresh){
-        try{
+        try{            
             this.parameter.currentPage = 1
             let res = await this._searchMainService.getList(this.parameter);            
             this.parameter.totalCount = res.totalCount
