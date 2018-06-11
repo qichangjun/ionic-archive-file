@@ -23,19 +23,6 @@
 
     </ion-refresher>
     <div class="item--count--box">
-        <!-- <ion-list radio-group [(ngModel)]="parameter.docbase" (ionChange)="parameter.parentId=0;parameter.currentPage=1;getList()">
-            <ion-item>
-                <ion-label>企业文档库</ion-label>
-                <ion-radio value="wison_company" checked></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-label>项目文档库</ion-label>
-                <ion-radio value="wison_projects"></ion-radio>
-            </ion-item>
-
-        </ion-list> -->
-        <!-- <button (click)="fullSearch()" ion-button full>搜索</button>                        -->
-
         <span class="item--count">共{{parameter.totalCount}}个文件</span>
     </div>    
     <div *ngIf="searchResults.length == 0">
