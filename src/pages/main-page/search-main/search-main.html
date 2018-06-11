@@ -11,6 +11,17 @@
 </ion-header>
 
 <ion-content padding>
+
+    <ion-refresher 
+    [pullMin]="160"
+    (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="更新中..."
+        >
+
+        </ion-refresher-content>
+
+    </ion-refresher>
     <div class="item--count--box">
         <!-- <ion-list radio-group [(ngModel)]="parameter.docbase" (ionChange)="parameter.parentId=0;parameter.currentPage=1;getList()">
             <ion-item>
@@ -26,7 +37,7 @@
         <!-- <button (click)="fullSearch()" ion-button full>搜索</button>                        -->
 
         <span class="item--count">共{{parameter.totalCount}}个文件</span>
-    </div>       
+    </div>    
     <div *ngIf="searchResults.length == 0">
         无数据
     </div>
