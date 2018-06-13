@@ -28,7 +28,7 @@
       
   $tabImageName: 'cubes' 'map' 'history';  
   $fontawesomeIcon : '\f1b3' '\f278' '\f1da';  
-  @for $i from 1 to 3 {        
+  @for $i from 1 to 4 {        
     //for ios    
     .ion-ios-tab-#{nth($tabImageName, $i)}:before {     
       @extend .ion-tab-icon-base;  
