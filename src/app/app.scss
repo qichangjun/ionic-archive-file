@@ -26,18 +26,23 @@
     height: 25px;  
   }    
       
-  $tabImageName: 'tab1' 'tab2' 'tab3' 'tab4' 'tab5';    
-  @for $i from 1 to 6 {    
+  $tabImageName: 'cubes' 'map' 'history';  
+  $fontawesomeIcon : '\f1b3' '\f278' '\f1da';  
+  @for $i from 1 to 3 {        
     //for ios    
-    .ion-ios-tab-#{nth($tabImageName, $i)}:before {    
+    .ion-ios-tab-#{nth($tabImageName, $i)}:before {     
       @extend .ion-tab-icon-base;  
       font : normal normal normal 14px/1 FontAwesome;
-      content : "\f15c";
+      content : "#{nth($fontawesomeIcon,$i)}";
+      font-size: 2.5rem;
+      width: auto;
     }    
     .ion-ios-tab-#{nth($tabImageName, $i)}-outline:before {    
       @extend .ion-tab-icon-base;  
       font : normal normal normal 14px/1 FontAwesome;
-      content : "\f15c";
+      content :"#{nth($fontawesomeIcon,$i)}";
+      font-size: 2.5rem;
+      width: auto;
     }    
       
     // for android    
@@ -56,7 +61,9 @@
           @extend .ion-tab-icon-md-base;    
         }  
         font : normal normal normal 14px/1 FontAwesome;
-        content : "\f15c";
+        content :"#{nth($fontawesomeIcon,$i)}";
+        font-size: 2.5rem;
+        width: auto;
         // content: url("../assets/icon/tabs/#{nth($tabImageName, $i)}_choosed.png");    
       }    
     }    
@@ -78,7 +85,9 @@
           @extend .ion-tab-icon-md-base;    
         }  
         font : normal normal normal 14px/1 FontAwesome;
-        content : "\f15c";
+        content : "#{nth($fontawesomeIcon,$i)}";
+        font-size: 2.5rem;
+        width: auto;
       }    
     }    
   }  
