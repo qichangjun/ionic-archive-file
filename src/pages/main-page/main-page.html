@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" class="main--page--wrap">
     <ion-header>
         <ion-toolbar>
             <ion-title>用户</ion-title>
@@ -6,7 +6,7 @@
     </ion-header>
     <ion-content>
         <ion-list>
-            <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+            <button class="ion--list--button" ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 {{p.title}}
             </button>
         </ion-list>

@@ -5,10 +5,14 @@
     }
     .toolbar-ios ion-title{
         padding: 0 10px 1px 50px;
-    }.toolbar-title-ios{
+    }
+    .toolbar-title-ios{
         color: #ffffff;
     }
-    .toolbar-background-ios{
+    .bar-button-default-md{
+        color: #ffffff;
+    }
+    .toolbar-background-ios, .toolbar-background{
         background: #1D82D2;
         border-bottom: transparent;
     }
@@ -17,25 +21,40 @@
     }
     .search--input{
         color: #ffffff;
+        .searchbar-input-container{
+            font: normal normal normal 14px/1 FontAwesome;
+            &:after{
+                content: "\f002";
+                font-size: 1.3rem;
+                position: absolute;
+                top: 7px;
+                left: 10px;
+                color: #f4f4f4;
+            }
+        }
         .searchbar-input{
             background: #1973B9;
             height: 2.3rem;
             color: #ffffff;
+            font-size: 1.4rem;
+            box-shadow: none;
+            padding: 6px 15px 6px 35px;
             &::-webkit-input-placeholder{
-                color: #ffffff;
+                color: #cccccc;
             }
             &::-moz-placeholder{   /* Mozilla Firefox 19+ */
-                color: #ffffff;
+                color: #cccccc;
             }
             &:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
-                color: #ffffff;
+                color: #cccccc;
             }
             &:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
-                color: #ffffff;
+                color: #cccccc;
             }
         }
         .searchbar-search-icon{
             top: 7px;
+            background-image: none;
         }
     }
 }
@@ -59,3 +78,20 @@
         margin-top: 0 !important;
     }
 }
+.no--data{
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 70px;
+    left: 0;
+    right: 0;
+    font-size: 16px;
+    color: #ab0909;
+    &:before{
+      font: normal normal normal 14px/1 FontAwesome;
+      content: '\f06a';
+      color: #ab0909;
+    }
+  }
