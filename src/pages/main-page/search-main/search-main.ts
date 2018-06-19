@@ -18,7 +18,8 @@ export class searchMain {
         parentId : 0,
         pageSize : 20,
         type: 2,
-        totalCount : 0
+        totalCount : 0,
+        ids : [0]
     }
     searchResults: Array<any> = [];
     pageCount = 1;
@@ -57,14 +58,6 @@ export class searchMain {
 
     }
 
-    checkAttr(searchResult){
-        let checkAttrModal = this.modalCtrl.create(CheckAttrModal, { docbase : this.parameter.docbase,row: searchResult });
-        checkAttrModal.present();
-        checkAttrModal.onDidDismiss(data => {
-            console.log(data);
-        });
-    }
-
     async changePage(event) {        
         if (this.parameter.currentPage >= this.pageCount) {
             event.complete()
@@ -85,6 +78,7 @@ export class searchMain {
             });
             return 
         }
+        this.parameter.ids.push(row.r_object_id);
         this.parameter.parentId = row.r_object_id;
         this.parameter.currentPage = 1;
         this.getList();
@@ -102,5 +96,14 @@ export class searchMain {
         } catch(err){
             refresh.complete();
         }
+    }
+
+    gotoPrevious(){
+        if (this.parameter.ids.length == 1){
+            return 
+        }
+        this.parameter.ids.pop()
+        this.parameter.parentId = this.parameter.ids[this.parameter.ids.length - 1]        
+        this.getList()
     }
 }

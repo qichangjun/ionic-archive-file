@@ -23,7 +23,11 @@
 
     </ion-refresher>
     <div class="item--count--box">
-        <span class="item--count">共{{parameter.totalCount}}个文件</span>
+        <span class="item--count">共{{parameter.totalCount}}个文件</span>   
+        <a 
+        *ngIf="parameter.parentId != 0"
+        style="float:right"
+        (click)="gotoPrevious()">返回上一级</a>
     </div>    
     <div *ngIf="searchResults.length == 0" class="no--data">
         无数据
@@ -42,9 +46,6 @@
                 </ion-avatar>
                 <h2 class="object--name">
                     {{searchResult.object_name}}
-                    <span style="float: right;" (click)="$event.stopPropagation();checkAttr(searchResult)">
-                        <ion-icon name="eye"></ion-icon>
-                    </span>
                 </h2>
 
                 <p [innerHTML]="searchResult.a_status"></p>

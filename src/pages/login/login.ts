@@ -24,6 +24,7 @@ export class LoginPage {
       username : '',
       password : ''
     }
+    this.storage.remove('AuthInfo');
   }
   async login(){
     let loading = this.loadingCtrl.create({
