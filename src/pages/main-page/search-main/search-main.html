@@ -26,7 +26,8 @@
         <span class="item--count">共{{parameter.totalCount}}个文件</span>
     </div>    
     <div *ngIf="searchResults.length == 0" class="no--data">
-        无数据
+        <img src="assets/imgs/no_result.png" alt="">
+        <p>暂无相关数据</p>
     </div>
 
     <div *ngIf="searchResults.length > 0">
