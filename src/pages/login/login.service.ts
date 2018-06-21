@@ -24,7 +24,7 @@ export class LoginService {
 
     login(parameter: any): Promise<any> {
         let params = new URLSearchParams();
-        params.set('loginName', parameter.username);
+        params.set('username', parameter.username);
         params.set('password', parameter.password);        
         return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['login'], { search: params })
             .toPromise()

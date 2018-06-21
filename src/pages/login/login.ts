@@ -34,7 +34,7 @@ export class LoginPage {
     try{            
       let res = await this._LoginService.login(this.model)
       loading.dismiss();
-      this.storage.set('AuthInfo', res);
+      this.storage.set('AuthInfo', {accessToken:res});
       this.navCtrl.push(mainPage);
     }catch(err){
       loading.dismiss();

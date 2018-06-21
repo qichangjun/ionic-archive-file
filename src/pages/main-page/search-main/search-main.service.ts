@@ -58,37 +58,42 @@ export class SearchMainService {
             );
     }
 
-    async getList(parameters): Promise<any> {
+    async getArchivesList(parameters): Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let info = Object.assign({}, parameters);
         let params = new URLSearchParams();
-        let userInfo = await this._storageInfoService.getAuthInfo()
-        params.set('parentId', parameters.parentId)
-        params.set('docbase', info.docbase)
+        let userInfo = await this._storageInfoService.getAuthInfo()                
         params.set('accessToken', userInfo.accessToken)
-        params.set('accessUser', userInfo.accessUser)
-        params.set('type', parameters.type)
-        let post_data = { orders: [], length: info.pageSize, page: info.currentPage, columns: [] }
-        let orders = [];
-        if (parameters.type == 2 || parameters.type == 3) {
-            orders.push({ direction: 'asc', column: 'r_object_type' })
-        }
-        if (parameters.dir && parameters.prop) {
-            orders.push({ direction: parameters.dir, column: parameters.prop })
-        } else {
-            orders.push({ direction: 'asc', column: 'object_name' })
-        }
-        post_data.orders = orders
-        if (parameters.object_name) {
-            post_data.columns.push({
-                "name": "object_name",
-                "predicate": "LIKE",
-                "type": "string",
-                "value": parameters.object_name
-            })
-        }
-        return this.http.post(this._baseConfig.getBaseUrl() + this._ApiUrlService['getFileList'] + '?' + params, JSON.stringify(post_data), options)
+        params.set('keywords',parameters.keywords)
+        params.set('locale','zh_CN')
+        params.set('pageSize',parameters.pageSize)
+        params.set('currentPage',parameters.currentPage)        
+        params.set('archiveCode',parameters.parentId)        
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getArchivesList'],{search:params})
+            .toPromise()
+            .then(res =>
+                this._httpHanldeService.extractData(res)
+            )
+            .catch(error =>
+                this._httpHanldeService.handleError(error)
+            );
+    }
+
+    async getFileList(parameters): Promise<any> {
+        console.log(parameters,111)
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let info = Object.assign({}, parameters);
+        let params = new URLSearchParams();
+        let userInfo = await this._storageInfoService.getAuthInfo()                
+        params.set('accessToken', userInfo.accessToken)
+        params.set('keywords',parameters.keywords)
+        params.set('locale','zh_CN')
+        params.set('pageSize',parameters.pageSize)
+        params.set('currentPage',parameters.currentPage)        
+        params.set('archiveCode',parameters.parentId)
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getFileList'],{search:params})
             .toPromise()
             .then(res =>
                 this._httpHanldeService.extractData(res)
