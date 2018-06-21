@@ -7,12 +7,8 @@
   },
   "proxies": [
     {
-      "path": "/edmsapi",
-      "proxyUrl": "http://kmdoc.wison.com/edmsapi"
-    },
-    {
-      "path": "/wisonsearchapi",
-      "proxyUrl": "http://kmdoc.wison.com/wisonsearchapi"
+      "path": "/api",
+      "proxyUrl": "http://126.11.9.56:8080/api"
     }
   ]
 }

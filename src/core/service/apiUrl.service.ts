@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class ApiUrlService {
     login = '/user/login';
     search = '/search/full_text';
-    getFileList = '/navigation/list';
+    getFileList = '/search/common';
+    // getFileList = '/navigation/list';
     getFileInfo = '/attribute/get_attributes';
 }
