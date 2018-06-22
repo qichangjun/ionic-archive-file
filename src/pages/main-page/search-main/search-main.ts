@@ -27,16 +27,8 @@ export class searchMain {
         private _searchMainService: SearchMainService,
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
-    ) {
-        let preview = this.modalCtrl.create(
-            previewPDF
-            // PreviewDocModal
-            );
-        preview.present();
-        preview.onDidDismiss(data => {
-            console.log(data);
-        });
-        // this.getList()
+    ) {      
+        this.getList()
     }
 
     /**
@@ -45,7 +37,7 @@ export class searchMain {
      */
     async getList(event?){
         let loading = this.loadingCtrl.create({
-            content: '请稍等...'
+            content: '请稍等.....'
         });
         loading.present();
         try{
