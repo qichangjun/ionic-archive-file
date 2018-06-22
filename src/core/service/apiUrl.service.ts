@@ -8,4 +8,5 @@ export class ApiUrlService {
     // getFileList = '/navigation/list';
     getFileInfo = '/attribute/get_attributes';
     getFileList = '/file/list';
+    getPdf = '/file/previewtest'
 }

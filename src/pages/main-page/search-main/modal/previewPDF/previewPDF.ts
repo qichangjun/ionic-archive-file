@@ -1,31 +1,23 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController,ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import * as PDFJS from "pdfjs-dist/webpack.js";
 import { PDFPageProxy, PDFPageViewport, PDFRenderTask } from 'pdfjs-dist';
-
+import { SearchMainService } from "../../search-main.service";
 @Component({
     selector: 'page-home',
-    templateUrl: 'previewPDF.html'
+    templateUrl: 'previewPDF.html',
+    providers: [SearchMainService]
 })
-export class previewPDF {
+export class previewPDF {    
     pdfDocument: PDFJS.PDFDocumentProxy;
     PDFJSViewer = PDFJS;
-    pageContainerUnique = {
-        width: 0 as number,
-        height: 0 as number,
-        element: null as HTMLElement,
-        canvas: null as HTMLCanvasElement,
-        textContainer: null as HTMLElement,
-        canvasWrapper: null as HTMLElement
-    }
-    @ViewChild('pageContainer') pageContainerRef: ElementRef;
-    @ViewChild('viewer') viewerRef: ElementRef;
-    @ViewChild('canvas') canvasRef: ElementRef;
-    @ViewChild('canvasWrapper') canvasWrapperRef: ElementRef;
-    @ViewChild('textContainer') textContainerRef: ElementRef;
-
-    constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
-        console.log(this.PDFJSViewer);
+    @ViewChild('canvas') canvasRef: ElementRef;   
+    pageNum : number = 1;             //加载的pdf页数   
+    totalPage : number = 1; 
+    pdfDoc : any;
+    constructor(
+        private _SearchMainService: SearchMainService,
+        public navCtrl: NavController, public viewCtrl: ViewController) {
     }
 
     dismiss() {
@@ -33,124 +25,64 @@ export class previewPDF {
     }
 
     ionViewDidLoad() {
-        this.pageContainerUnique.element = this.pageContainerRef.nativeElement as HTMLElement;
-        this.pageContainerUnique.canvasWrapper = this.canvasWrapperRef.nativeElement as HTMLCanvasElement;
-        this.pageContainerUnique.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
-        this.pageContainerUnique.textContainer = this.textContainerRef.nativeElement as HTMLCanvasElement;
-        this.loadPdf('assets/pdf/222.pdf');
-    }
-    
-    loadPdf(pdfPath: string): Promise<boolean> {
-
-        return this.PDFJSViewer.getDocument(pdfPath)
-            .then(pdf => {
-                this.pdfDocument = pdf;
-                console.log("pdf loaded:"); console.dir(this.pdfDocument);
-                return this.loadPage(1);
-            }).then((pdfPage) => {
-                console.dir(pdfPage);
-            }).catch(e => {
-                console.error(e);
-                return false;
-            });
+        this.getFileBase64()
     }
 
-    loadPage(pageNum: number = 1) {
-        let pdfPage: PDFPageProxy;
+    async getFileBase64() {
+        // let pdfData = await this._SearchMainService.getPdf()
+        let pdfData = atob('JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwog' +
+            'IC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAv' +
+            'TWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0K' +
+            'Pj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAg' +
+            'L1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+' +
+            'PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9u' +
+            'dAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2Jq' +
+            'Cgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJU' +
+            'CjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVu' +
+            'ZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4g' +
+            'CjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAw' +
+            'MDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9v' +
+            'dCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G')        
+        this.PDFJSViewer.getDocument({ data: pdfData }).then(pdf => {  
+            this.pdfDoc = pdf  
+            this.totalPage = pdf.numPages    
+            this.renderPage()
+        })
+    }
 
-        return this.pdfDocument.getPage(pageNum).then(thisPage => {
-            pdfPage = thisPage;
-            return this.renderOnePage(pdfPage);
-        }).then(() => {
-            return pdfPage;
-        });
-
-    } // loadpage()
-
-
-
-    async renderOnePage(pdfPage: PDFPageProxy) {
-
-        let textContainer: HTMLElement;
-        let canvas: HTMLCanvasElement;
-        let wrapper: HTMLElement;
-
-        let canvasContext: CanvasRenderingContext2D;
-        let page: HTMLElement
-
-        page = this.pageContainerUnique.element;
-        textContainer = this.pageContainerUnique.textContainer;
-        canvas = this.pageContainerUnique.canvas;
-        wrapper = this.pageContainerUnique.canvasWrapper;
-
-        canvasContext = canvas.getContext('2d') as CanvasRenderingContext2D;
-        canvasContext.imageSmoothingEnabled = false;
-        canvasContext.webkitImageSmoothingEnabled = false;
-        canvasContext.mozImageSmoothingEnabled = false;
-        canvasContext.oImageSmoothingEnabled = false;
-
-        let viewport = pdfPage.getViewport(1) as PDFPageViewport;
-
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        page.style.width = `${viewport.width}px`;
-        page.style.height = `${viewport.height}px`;
-        wrapper.style.width = `${viewport.width}px`;
-        wrapper.style.height = `${viewport.height}px`;
-        textContainer.style.width = `${viewport.width}px`;
-        textContainer.style.height = `${viewport.height}px`;
-
-        //fix for 4K
-
-
-        if (window.devicePixelRatio > 1) {
-            let canvasWidth = canvas.width;
-            let canvasHeight = canvas.height;
-
-            canvas.width = canvasWidth * window.devicePixelRatio;
-            canvas.height = canvasHeight * window.devicePixelRatio;
-            canvas.style.width = canvasWidth + "px";
-            canvas.style.height = canvasHeight + "px";
-
-            canvasContext.scale(window.devicePixelRatio, window.devicePixelRatio);
+    renderPage(){
+        if (!this.pdfDoc){
+            return 
         }
+        this.pdfDoc.getPage(this.pageNum).then(((page) => {
+            var scale = 1.5;
+            var viewport = page.getViewport(scale);
+            var canvas = this.canvasRef.nativeElement as HTMLCanvasElement            
+            var context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            // Render PDF page into canvas context
+            var renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            var renderTask = page.render(renderContext);
+        }))
+    }
 
-        // THIS RENDERS THE PAGE !!!!!!
+    previous(){
+        if (this.pageNum <= 1) {
+            return;
+        }
+        this.pageNum--;          
+        this.renderPage()
+    }
 
-
-        let renderTask: PDFRenderTask = pdfPage.render({
-            canvasContext,
-            viewport
-        });
-
-        let container = textContainer;
-
-        return renderTask.then(() => {
-            //console.error("I WORK JUST UNTIL HERE");
-
-
-            return pdfPage.getTextContent();
-
-        }).then((textContent) => {
-
-            let textLayer: HTMLElement;
-
-
-            textLayer = this.pageContainerUnique.textContainer
-
-
-            while (textLayer.lastChild) {
-                textLayer.removeChild(textLayer.lastChild);
-            }
-
-            this.PDFJSViewer.renderTextLayer({
-                textContent,
-                container,
-                viewport,
-                textDivs: []
-            });
-
-            return true;
-        });
+    next(){
+        if (this.pageNum >= this.pdfDoc.numPages) {
+            return;
+        }
+        this.pageNum++;
+        this.renderPage()
     }
 }

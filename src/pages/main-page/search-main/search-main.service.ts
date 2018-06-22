@@ -80,8 +80,7 @@ export class SearchMainService {
             );
     }
 
-    async getFileList(parameters): Promise<any> {
-        console.log(parameters,111)
+    async getFileList(parameters): Promise<any> {        
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let info = Object.assign({}, parameters);
@@ -97,6 +96,18 @@ export class SearchMainService {
             .toPromise()
             .then(res =>
                 this._httpHanldeService.extractData(res)
+            )
+            .catch(error =>
+                this._httpHanldeService.handleError(error)
+            );
+    }
+
+    async getPdf(): Promise<any> {                                
+        let params = new URLSearchParams();                            
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getPdf'],{search:params})
+            .toPromise()
+            .then(res =>
+                Promise.resolve(res)
             )
             .catch(error =>
                 this._httpHanldeService.handleError(error)

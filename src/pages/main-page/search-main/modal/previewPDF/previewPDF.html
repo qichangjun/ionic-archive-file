@@ -13,27 +13,11 @@
     </ion-header>
     
     <ion-content padding>
-        <div #viewerContainer
-             class="viewer-container">
-            <div #viewer
-                 class="viewer">
-                <ng-container #pagesContainer>
-                    <div #pageContainer
-                         class="page"
-                         [style.width.px]="pageContainerUnique.width"
-                         [style.height.px]="pageContainerUnique.height">
-    
-                        <div class="canvas-wrapper"
-                             #canvasWrapper>
-                            <canvas class="page-canvas"
-                                    #canvas></canvas>
-    
-                        </div>
-                        <div #textContainer
-                             class="text-layer selectable">
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
-        </div>
+        <div>
+            <button (click)="previous()">上一页</button>
+            <button (click)="next()">下一页</button>
+            &nbsp; &nbsp;
+            <span>页数: <span id="page_num">{{pageNum}}</span> / <span id="page_count">{{totalPage}}</span></span>
+          </div>          
+            <canvas #canvas></canvas>                    
     </ion-content>

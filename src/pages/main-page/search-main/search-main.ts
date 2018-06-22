@@ -28,7 +28,15 @@ export class searchMain {
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
     ) {
-        this.getList()
+        let preview = this.modalCtrl.create(
+            previewPDF
+            // PreviewDocModal
+            );
+        preview.present();
+        preview.onDidDismiss(data => {
+            console.log(data);
+        });
+        // this.getList()
     }
 
     /**
@@ -90,10 +98,10 @@ export class searchMain {
      * 跳转往预览页面，或进入下一级
      */
     async itemSelected(row){
-        if(row.r_object_type == 'wison_prj_document' || row.r_object_type == 'wison_document'){
+        if(row.objectType == 'file' || true){
             let preview = this.modalCtrl.create(
-                // previewPDF
-                PreviewDocModal
+                previewPDF
+                // PreviewDocModal
                 , { docbase : this.parameter.docbase,row: row });
             preview.present();
             preview.onDidDismiss(data => {
@@ -103,10 +111,10 @@ export class searchMain {
         }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
-        this.parameter.ids.push(row.archiveCode);
-        this.parameter.parentId = row.archiveCode;
-        this.parameter.currentPage = 1;
-        this.getList();
+        // this.parameter.ids.push(row.archiveCode);
+        // this.parameter.parentId = row.archiveCode;
+        // this.parameter.currentPage = 1;
+        // this.getList();
     }
 
     /**
@@ -120,7 +128,7 @@ export class searchMain {
             if (!this.parameter.parentId){
                 var res = await this._searchMainService.getArchivesList(this.parameter);            
             }else{
-                return 
+                var res = await this._searchMainService.getFileList(this.parameter);
             }            
             this.parameter.totalCount = res.page.totalCount
             this.pageCount = res.page.totalCount/20
