@@ -94,4 +94,5 @@
     <allow-navigation href="http://126.10.1.179:8080" />
     <allow-navigation href="http://126.10.9.205:8000" />
     <plugin name="cordova-plugin-document-viewer" spec="^0.9.10" />
+    <allow-navigation href="http://192.168.169.176:8100" />
 </widget>

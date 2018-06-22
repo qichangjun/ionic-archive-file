@@ -104,12 +104,13 @@ export class SearchMainService {
 
     async getPdf(): Promise<any> {                                
         let params = new URLSearchParams();                            
-        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getPdf'],{search:params})
+        return this.http.get(
+            'http://kmdoc.wison.com/edmsapi/resource/download?docbase=wison_company&accessToken=ac7c1b55c2e205032a9eb7d58220c1f0&accessUser=czU5dmN1Qm9qREw4cG1XL0NnV3ZXbEx5djRkZDJnaEJVSXNqeHJTckE1QTFMeThCMzYzUGMxNXE4cm05bk5FNFowb3NNQXFTNzNrYWp1TXJpOENjOWdOT29sKzgrVXhMN1hVQWk5UXhKbUIrRUh4SUtycS9jb2tra0pVYmE1SGg=&locale=zh_CN&ids=0901e240805dbbd1',{search:params,responseType:2})
             .toPromise()
             .then(res =>
                 Promise.resolve(res)
             )
-            .catch(error =>
+            .catch(error => 
                 this._httpHanldeService.handleError(error)
             );
     }
