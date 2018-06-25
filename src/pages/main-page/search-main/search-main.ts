@@ -26,8 +26,16 @@ export class searchMain {
         private _searchMainService: SearchMainService,
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
-    ) {            
-        this.getList()
+    ) {      
+        let preview = this.modalCtrl.create(
+            previewPDF
+            // PreviewDocModal
+           );
+        preview.present();
+        preview.onDidDismiss(data => {
+            console.log(data);
+        });      
+        // this.getList()
     }
 
     /**
