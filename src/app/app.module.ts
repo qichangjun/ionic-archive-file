@@ -19,7 +19,7 @@ import { CheckAttrModal } from '../pages/main-page/search-main/modal/checkAttr/c
 import { PreviewDocModal } from '../pages/main-page/search-main/modal/previewDoc/previewDoc.modal';
 import { tabsMain } from '../pages/main-page/tabs-main/tabs-main';
 import { previewPDF } from '../pages/main-page/search-main/modal/previewPDF/previewPDF';
-
+import { AdvanceSearchModal } from '../pages/main-page/search-main/modal/advanceSearch/advanceSearch.modal';
 @NgModule({
   declarations: [
     MyApp,
@@ -30,7 +30,8 @@ import { previewPDF } from '../pages/main-page/search-main/modal/previewPDF/prev
     tabsMain,
     CheckAttrModal,
     PreviewDocModal,
-    previewPDF
+    previewPDF,
+    AdvanceSearchModal
   ],
   imports: [
     BrowserModule,
@@ -50,7 +51,8 @@ import { previewPDF } from '../pages/main-page/search-main/modal/previewPDF/prev
     tabsMain,
     previewPDF,
     CheckAttrModal,
-    PreviewDocModal
+    PreviewDocModal,
+    AdvanceSearchModal
   ],
   providers: [
     HTTP,

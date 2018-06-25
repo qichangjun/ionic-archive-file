@@ -3,7 +3,7 @@ import { SearchMainService } from './search-main.service';
 import { LoadingController,ModalController } from 'ionic-angular';
 import { PreviewDocModal } from './modal/previewDoc/previewDoc.modal';
 import { previewPDF } from './modal/previewPDF/previewPDF';
-
+import { AdvanceSearchModal } from './modal/advanceSearch/advanceSearch.modal'
 @Component({
     selector: 'search-main',
     templateUrl: 'search-main.html',
@@ -107,6 +107,20 @@ export class searchMain {
         this.parameter.parentId = row.archiveCode;
         this.parameter.currentPage = 1;
         this.getList();
+    }
+
+    /**
+     * 打开高级检索框
+     */
+    openSearchAdvance(){
+        let advanceSearch = this.modalCtrl.create(
+            AdvanceSearchModal
+        );
+        advanceSearch.present();
+        advanceSearch.onDidDismiss(data => {
+            console.log(data);
+        });
+        return 
     }
 
     /**
