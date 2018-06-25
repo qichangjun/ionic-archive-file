@@ -2,21 +2,20 @@ import { Injectable } from '@angular/core';
 @Injectable()
 
 export class baseConfig {
-    // private baseUrl = 'http://kmdoc.wison.com/edmsapi'
-    // private wisonsearchUrl = 'http://kmdoc.wison.com/wisonsearchapi'
-    private previewUrl = 'http://kmdoc.wison.com/docview/#!/?'
 
-    private baseUrl = '/api'
-    private wisonsearchUrl = '/wisonsearchapi'
+    //prod
+    private baseUrl = 'http://127.0.0.1:8010'
+    //debug
+    // private baseUrl = '/api'
     getBaseUrl(){
         return this.baseUrl
     }
 
     getwisonSearchUrl(){
-        return this.wisonsearchUrl
+        return false
     }
 
     getpreviewUrl(){
-        return this.previewUrl
+        return false
     }
 }

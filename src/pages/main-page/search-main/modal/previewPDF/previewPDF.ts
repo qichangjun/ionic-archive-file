@@ -29,12 +29,8 @@ export class previewPDF {
     }
 
     async getFileBase64() {
-        let data = await this._SearchMainService.getPdf()        
-        data = this._arrayBufferToBase64(data._body)  
-        console.log(data)              
-        let pdfData = atob(data)  
-        console.log(pdfData)              
-        this.PDFJSViewer.getDocument({ data: pdfData }).then(pdf => {  
+        let data = await this._SearchMainService.getPdf()               
+        this.PDFJSViewer.getDocument(data._body).then(pdf => {  
             this.pdfDoc = pdf  
             this.totalPage = pdf.numPages    
             this.renderPage()
@@ -56,12 +52,11 @@ export class previewPDF {
             return 
         }
         this.pdfDoc.getPage(this.pageNum).then(((page) => {
-            var scale = 1.5;
-            var viewport = page.getViewport(scale);
             var canvas = this.canvasRef.nativeElement as HTMLCanvasElement            
-            var context = canvas.getContext('2d');
+            var context = canvas.getContext('2d');            
+            canvas.width = 400;
+            var viewport = page.getViewport(canvas.width / page.getViewport(1.0).width);
             canvas.height = viewport.height;
-            canvas.width = viewport.width;
             // Render PDF page into canvas context
             var renderContext = {
                 canvasContext: context,

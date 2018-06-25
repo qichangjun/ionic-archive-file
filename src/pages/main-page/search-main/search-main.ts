@@ -27,16 +27,8 @@ export class searchMain {
         private _searchMainService: SearchMainService,
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
-    ) {
-        let preview = this.modalCtrl.create(
-            previewPDF
-            // PreviewDocModal
-            );
-        preview.present();
-        preview.onDidDismiss(data => {
-            console.log(data);
-        });
-        // this.getList()
+    ) {     
+        this.getList()
     }
 
     /**
@@ -98,7 +90,7 @@ export class searchMain {
      * 跳转往预览页面，或进入下一级
      */
     async itemSelected(row){
-        if(row.objectType == 'file' || true){
+        if(row.objectType == 'file' ){
             let preview = this.modalCtrl.create(
                 previewPDF
                 // PreviewDocModal
@@ -111,10 +103,10 @@ export class searchMain {
         }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
-        // this.parameter.ids.push(row.archiveCode);
-        // this.parameter.parentId = row.archiveCode;
-        // this.parameter.currentPage = 1;
-        // this.getList();
+        this.parameter.ids.push(row.archiveCode);
+        this.parameter.parentId = row.archiveCode;
+        this.parameter.currentPage = 1;
+        this.getList();
     }
 
     /**
