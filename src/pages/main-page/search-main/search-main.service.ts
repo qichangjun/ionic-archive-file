@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, URLSearchParams, RequestOptionsArgs, RequestOptions, ResponseContentType } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Http, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -104,8 +103,9 @@ export class SearchMainService {
 
     async getPdf(): Promise<any> {                                
         let params = new URLSearchParams();                            
-        return this.http.get(         
-           this._baseConfig.getBaseUrl() + this._ApiUrlService['getPdf'],{search:params,responseType:2})
+        return this.http.get(       
+           this._baseConfig.getBaseUrl() + this._ApiUrlService['getPdf']
+           ,{search:params,responseType:2})
             .toPromise()
             .then(res =>
                 Promise.resolve(res)

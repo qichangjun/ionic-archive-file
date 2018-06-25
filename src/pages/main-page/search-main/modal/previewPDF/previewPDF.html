@@ -18,6 +18,9 @@
             <button (click)="next()">下一页</button>
             &nbsp; &nbsp;
             <span>页数: <span id="page_num">{{pageNum}}</span> / <span id="page_count">{{totalPage}}</span></span>
-          </div>          
+          </div>      
+            <div *ngIf="pageRendering">
+                正在加载pdf...
+            </div>    
             <canvas height="200" width="200" #canvas></canvas>                    
     </ion-content>

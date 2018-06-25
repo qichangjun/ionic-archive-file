@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController, ViewController } from 'ionic-angular';
 import * as PDFJS from "pdfjs-dist/webpack.js";
-import { PDFPageProxy, PDFPageViewport, PDFRenderTask } from 'pdfjs-dist';
 import { SearchMainService } from "../../search-main.service";
 @Component({
     selector: 'page-home',
@@ -15,6 +14,7 @@ export class previewPDF {
     pageNum : number = 1;             //加载的pdf页数   
     totalPage : number = 1; 
     pdfDoc : any;
+    pageRendering : boolean = false;
     constructor(
         private _SearchMainService: SearchMainService,
         public navCtrl: NavController, public viewCtrl: ViewController) {
@@ -51,6 +51,7 @@ export class previewPDF {
         if (!this.pdfDoc){
             return 
         }
+        this.pageRendering = true 
         this.pdfDoc.getPage(this.pageNum).then(((page) => {
             var canvas = this.canvasRef.nativeElement as HTMLCanvasElement            
             var context = canvas.getContext('2d');            
@@ -63,11 +64,15 @@ export class previewPDF {
                 viewport: viewport
             };
             var renderTask = page.render(renderContext);
+
+            renderTask.promise.then(()=>{
+                this.pageRendering = false;
+            })
         }))
     }
 
     previous(){
-        if (this.pageNum <= 1) {
+        if (this.pageNum <= 1 || this.pageRendering) {
             return;
         }
         this.pageNum--;          
@@ -75,7 +80,7 @@ export class previewPDF {
     }
 
     next(){
-        if (this.pageNum >= this.pdfDoc.numPages) {
+        if (this.pageNum >= this.pdfDoc.numPages || this.pageRendering) {
             return;
         }
         this.pageNum++;

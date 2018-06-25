@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchMainService } from './search-main.service';
 import { LoadingController,ModalController } from 'ionic-angular';
-import { CheckAttrModal } from './modal/checkAttr/checkAttr.modal';
 import { PreviewDocModal } from './modal/previewDoc/previewDoc.modal';
 import { previewPDF } from './modal/previewPDF/previewPDF';
 
@@ -27,7 +26,7 @@ export class searchMain {
         private _searchMainService: SearchMainService,
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
-    ) {     
+    ) {            
         this.getList()
     }
 
