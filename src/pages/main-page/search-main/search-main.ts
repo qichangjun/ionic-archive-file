@@ -27,15 +27,7 @@ export class searchMain {
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
     ) {      
-        let preview = this.modalCtrl.create(
-            previewPDF
-            // PreviewDocModal
-           );
-        preview.present();
-        preview.onDidDismiss(data => {
-            console.log(data);
-        });      
-        // this.getList()
+        this.getList()
     }
 
     /**
