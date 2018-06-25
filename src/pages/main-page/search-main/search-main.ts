@@ -42,10 +42,11 @@ export class searchMain {
         try{
             //没有parentId时，获取档案列表
             //否则获取文件列表，接口不同
+            var res;
             if (!this.parameter.parentId){
-                var res = await this._searchMainService.getArchivesList(this.parameter);            
+                res = await this._searchMainService.getArchivesList(this.parameter);            
             } else {
-                var res = await this._searchMainService.getFileList(this.parameter);
+                res = await this._searchMainService.getFileList(this.parameter);
             }            
             loading.dismiss();
             //确认分页数量,总数除以20，向上取整
@@ -116,10 +117,11 @@ export class searchMain {
         try{            
             //刷新总是跳转回第一页
             this.parameter.currentPage = 1
+            var res;
             if (!this.parameter.parentId){
-                var res = await this._searchMainService.getArchivesList(this.parameter);            
+                res = await this._searchMainService.getArchivesList(this.parameter);            
             }else{
-                var res = await this._searchMainService.getFileList(this.parameter);
+                res = await this._searchMainService.getFileList(this.parameter);
             }            
             this.parameter.totalCount = res.page.totalCount
             this.pageCount = res.page.totalCount/20

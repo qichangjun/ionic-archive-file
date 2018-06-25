@@ -4,7 +4,8 @@
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>
-            <ion-searchbar class="search--input" debounce="1000" (ionInput)="parameter.currentPage=1;getList()" [(ngModel)]="parameter.keywords" placeholder="请输入关键字">
+            <ion-searchbar class="search--input" debounce="1000" (ionInput)="parameter.currentPage=1;getList()" [(ngModel)]="parameter.keywords"
+                placeholder="请输入关键字">
             </ion-searchbar>
         </ion-title>
     </ion-navbar>
@@ -12,24 +13,16 @@
 
 <ion-content padding>
 
-    <ion-refresher 
-    [pullMin]="160"
-    (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-            pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="更新中..."
-        >
+    <ion-refresher [pullMin]="160" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="更新中...">
 
         </ion-refresher-content>
 
     </ion-refresher>
     <div class="item--count--box">
-        <span class="item--count">共{{parameter.totalCount}}个
-            {{parameter.parentId ? '文件' : '档案'}}</span>   
-        <a 
-        *ngIf="parameter.parentId"
-        style="float:right"
-        (click)="gotoPrevious()">返回上一级</a>
-    </div>    
+        <span class="item--count">共{{parameter.totalCount}}个 {{parameter.parentId ? '文件' : '档案'}}</span>
+        <a *ngIf="parameter.parentId" style="float:right" (click)="gotoPrevious()">返回上一级</a>
+    </div>
     <div *ngIf="searchResults.length == 0" class="no--data">
         <img src="assets/imgs/no_result.png" alt="">
         <p>暂无相关数据</p>
@@ -39,29 +32,27 @@
         <ion-list>
             <ion-item class="single--item--box" *ngFor="let searchResult of searchResults" (click)="itemSelected(searchResult)">
                 <ion-avatar item-start>
-                    <img   onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="searchResult.objectType == 'folder'"
+                    <img onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="searchResult.objectType == 'folder'"
                         src="assets/images/icon/archives.png" alt="">
-                    
-                    <img class="data--list--doc--icon" *ngIf="searchResult.objectType == 'file'"
-                        onerror="this.src='assets/images/icon/unknown.png'" 
+
+                    <img class="data--list--doc--icon" *ngIf="searchResult.objectType == 'file'" onerror="this.src='assets/images/icon/unknown.png'"
                         src="assets/images/icon/pdf.png" alt="">
                 </ion-avatar>
-                <ng-container *ngIf="searchResult.objectType == 'folder'"> 
-                        <h2 class="object--name">
-                                {{searchResult.title}}
-                            </h2>
-                            <p>
-                                {{searchResult.year}}  {{searchResult.unit}}
-                            </p>
-                            <p [innerHTML]="searchResult.a_status"></p>
+                <ng-container *ngIf="searchResult.objectType == 'folder'">
+                    <h2 class="object--name">
+                        {{searchResult.title}}
+                    </h2>
+                    <p>
+                        {{searchResult.year}} {{searchResult.unit}}
+                    </p>
                 </ng-container>
                 <ng-container *ngIf="searchResult.objectType == 'file'">
-                        <h2 class="object--name">
-                                {{searchResult.name}}
-                            </h2>
+                    <h2 class="object--name">
+                        {{searchResult.name}}
+                    </h2>
 
                 </ng-container>
-                
+
             </ion-item>
         </ion-list>
 

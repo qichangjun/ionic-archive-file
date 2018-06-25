@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams, RequestOptions } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -58,9 +58,6 @@ export class SearchMainService {
     }
 
     async getArchivesList(parameters): Promise<any> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let info = Object.assign({}, parameters);
         let params = new URLSearchParams();
         let userInfo = await this._storageInfoService.getAuthInfo()                
         params.set('accessToken', userInfo.accessToken)
@@ -80,9 +77,6 @@ export class SearchMainService {
     }
 
     async getFileList(parameters): Promise<any> {        
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let info = Object.assign({}, parameters);
         let params = new URLSearchParams();
         let userInfo = await this._storageInfoService.getAuthInfo()                
         params.set('accessToken', userInfo.accessToken)

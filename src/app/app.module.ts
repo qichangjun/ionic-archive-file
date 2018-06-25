@@ -16,7 +16,7 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { mainPage } from '../pages/main-page/main-page';
 import { searchMain } from '../pages/main-page/search-main/search-main';
-import { HTTP, HTTPResponse } from '@ionic-native/http';
+import { HTTP } from '@ionic-native/http';
 import { CheckAttrModal } from '../pages/main-page/search-main/modal/checkAttr/checkAttr.modal';
 import { PreviewDocModal } from '../pages/main-page/search-main/modal/previewDoc/previewDoc.modal';
 import { tabsMain } from '../pages/main-page/tabs-main/tabs-main';

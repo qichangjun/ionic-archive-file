@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response,URLSearchParams } from '@angular/http';
+import { Response } from '@angular/http';
 import { ToastController } from 'ionic-angular';
 import { HTTPResponse } from '@ionic-native/http';
 @Injectable()

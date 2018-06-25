@@ -1,6 +1,5 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ListPage } from '../../list/list';
-import { LoginPage } from '../../login/login';
 import { searchMain } from '../search-main/search-main';
 
 

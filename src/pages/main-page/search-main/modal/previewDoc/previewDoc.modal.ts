@@ -1,8 +1,6 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { baseConfig } from '../../../../../core/service/baseConfig.service';
-
-import * as pdfjsLib from 'pdfjs-dist';
 import Viewer from 'viewerjs';
 @Component({
     selector: 'preview-doc',
@@ -15,8 +13,8 @@ export class PreviewDocModal {
     constructor(
         params: NavParams,
         public viewCtrl: ViewController,
-        public _baseConfig: baseConfig,
-        private loadingCtrl: LoadingController
+        public _baseConfig: baseConfig
+        // private loadingCtrl: LoadingController
     ) {
         this.row = params.get('row')
         this.docbase = params.get('docbase')
