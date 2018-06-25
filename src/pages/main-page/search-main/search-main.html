@@ -22,7 +22,7 @@
     <div class="item--count--box">
         <span class="item--count">共{{parameter.totalCount}}个 {{parameter.parentId ? '文件' : '档案'}}</span>
         <a *ngIf="parameter.parentId" style="float:right" (click)="gotoPrevious()">返回上一级</a>
-        <a  style="float:right" (click)="openSearchAdvance()">过滤检索</a>
+        <a  style="float:right" (click)="openSearchAdvance()">高级检索</a>
     </div>
     <div *ngIf="searchResults.length == 0" class="no--data">
         <img src="assets/imgs/no_result.png" alt="">
