@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 export class baseConfig {
 
     //prod
-    private baseUrl = 'http://127.0.0.1:8010'
+    // private baseUrl = 'http://127.0.0.1:8010'
     //debug
-    // private baseUrl = '/api'
+    private baseUrl = '/appapi'
     getBaseUrl(){
         return this.baseUrl
     }
