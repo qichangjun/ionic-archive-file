@@ -9,4 +9,5 @@ export class ApiUrlService {
     getFileInfo = '/attribute/get_attributes';
     getFileList = '/file/list';
     getPdf = '/file/previewtest'
+    getDocBaseLists = '/user/zjny/lib/list';
 }

@@ -16,32 +16,9 @@
         <ion-item>
           <ion-label>档案库</ion-label>
           <ion-select okText="确定" cancelText="取消" [(ngModel)]="filterParams.docbase">
-            <ion-option value="文书档案库">文书档案库</ion-option>
-            <ion-option value="实物档案库">实物档案库</ion-option>
-            <ion-option value="科技档案库">科技档案库</ion-option>
-            <ion-option value="照片档案库">照片档案库</ion-option>
-         
+            <ion-option *ngFor="let docBase of docBaseLists" value="{{docBase.objectId}}">{{docBase.name}}</ion-option>
           </ion-select>
         </ion-item>
-
-        <ion-item>
-            <ion-label>年度</ion-label>
-            <ion-select okText="确定" cancelText="取消" [(ngModel)]="filterParams.year">
-              <ion-option value="2018">2018</ion-option>
-              <ion-option value="2017">2017</ion-option>
-              <ion-option value="2016">2016</ion-option>
-            </ion-select>
-          </ion-item>
-
-
-          <ion-item>
-            <ion-label>保管期限</ion-label>
-            <ion-select okText="确定" cancelText="取消" [(ngModel)]="filterParams.keepDate">
-              <ion-option value="短期">短期</ion-option>
-              <ion-option value="长期">长期</ion-option>
-              <ion-option value="永久">永久</ion-option>
-            </ion-select>
-          </ion-item>
       </ion-list>        
       <div style=" bottom: 10px;
       position: absolute;

@@ -57,6 +57,22 @@ export class SearchMainService {
             );
     }
 
+    async getDocBaseLists(): Promise<any> {
+        let params = new URLSearchParams();
+        let userInfo = await this._storageInfoService.getAuthInfo()  
+        params.set('accessKey', userInfo.accessKey);              
+        params.set('accessToken', userInfo.accessToken)
+        params.set('userId', userInfo.user.id)   
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getDocBaseLists'],{search:params})
+            .toPromise()
+            .then(res =>
+                this._httpHanldeService.extractData(res)
+            )
+            .catch(error =>
+                this._httpHanldeService.handleError(error)
+            );
+    }
+
     async getArchivesList(parameters): Promise<any> {
         let params = new URLSearchParams();
         let userInfo = await this._storageInfoService.getAuthInfo()  

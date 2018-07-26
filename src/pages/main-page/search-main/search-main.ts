@@ -27,7 +27,7 @@ export class searchMain {
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
     ) {      
-        this.getList()
+        // this.getList()
     }
 
     /**

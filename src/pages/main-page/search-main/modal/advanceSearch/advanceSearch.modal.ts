@@ -1,24 +1,30 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { storageInfoService } from '../../../../../core/service/storageInfo.service';
+import { SearchMainService } from '../../search-main.service'
 @Component({
     selector: 'advance-search',
-    templateUrl: 'advanceSearch.modal.html'    
+    templateUrl: 'advanceSearch.modal.html',
+    providers:[SearchMainService]
 })
 export class AdvanceSearchModal {
     filterParams={
-        docbase : null,
-        year : null,
-        keepDate : null
+        docbase : null
     }
+    docBaseLists :Array<any> = []
     constructor(
         params: NavParams,
-        public viewCtrl: ViewController
+        public viewCtrl: ViewController,
+        private _storageInfoService: storageInfoService,
+        private _searchMainService : SearchMainService
         // private loadingCtrl: LoadingController
     ) {
-       
+        this.getDocBaseLists()
     }
-    ngOnInit() {
-       
+
+    async getDocBaseLists(){
+        let res = await this._searchMainService.getDocBaseLists()
+        this.docBaseLists = res.libs
     }
 
     dismiss() {
