@@ -41,7 +41,12 @@ export class httpHanldeService {
     }
 
     public handleError(error: any): Promise<any> {  
-        console.error(error)      
+        console.error(error)   
+        let toast = this.toastCtrl.create({
+            message: 'status:' + error.status + ',服务器连接失败',
+            duration: 3000
+        });  
+        toast.present() 
         return Promise.reject(error.message || error);
     }
 }
