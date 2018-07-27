@@ -32,9 +32,9 @@ export class LoginPage {
     });
     loading.present();
     try{            
-      let res = await this._LoginService.login(this.model)
+      // let res = await this._LoginService.login(this.model)
       loading.dismiss();
-      this.storage.set('AuthInfo', {accessToken:res});
+      this.storage.set('AuthInfo', {accessToken:'res'});
       this.navCtrl.push(mainPage);
     }catch(err){
       loading.dismiss();
