@@ -18,13 +18,8 @@ export class AdvanceSearchModal {
         private _storageInfoService: storageInfoService,
         private _searchMainService : SearchMainService
         // private loadingCtrl: LoadingController
-    ) {
-        this.getDocBaseLists()
-    }
-
-    async getDocBaseLists(){
-        let res = await this._searchMainService.getDocBaseLists()
-        this.docBaseLists = res.libs
+    ) {        
+        this.docBaseLists = params.get('docBaseLists')
     }
 
     dismiss() {

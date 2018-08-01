@@ -11,7 +11,8 @@ import { AdvanceSearchModal } from './modal/advanceSearch/advanceSearch.modal'
 })
 export class searchMain {
     parameter = {
-        docbase : 'wison_projects',
+        docbaseName : undefined,
+        libId : undefined,
         keywords : '',
         currentPage : 1,
         parentId : null,
@@ -20,6 +21,8 @@ export class searchMain {
         totalCount : 0,
         ids : [null]
     }
+    columns = [];
+    docBaseLists = [];
     searchResults: Array<any> = [];
     pageCount = 1;
     constructor(
@@ -27,6 +30,7 @@ export class searchMain {
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
     ) {      
+        this.getDocBaseLists()
         // this.getList()
     }
 
@@ -35,6 +39,9 @@ export class searchMain {
      * @param event : 下拉分页对象，complete方法用来停止动画
      */
     async getList(event?){
+        if(!this.parameter.libId){
+            return 
+        }
         let loading = this.loadingCtrl.create({
             content: '请稍等...'
         });
@@ -44,24 +51,40 @@ export class searchMain {
             //否则获取文件列表，接口不同
             var res;
             if (!this.parameter.parentId){
-                res = await this._searchMainService.getArchivesList(this.parameter);            
+                res = await this._searchMainService.getArchivesList(this.parameter);  
+                this.parameter.totalCount = res.pages.totalCount                        
+                this.pageCount = res.pages.totalCount/20            
+                this.pageCount =  Math.ceil(this.pageCount)          
             } else {
                 res = await this._searchMainService.getFileList(this.parameter);
             }            
-            loading.dismiss();
             //确认分页数量,总数除以20，向上取整
-            //用于下拉分页确认下一页有无数据
-            this.parameter.totalCount = res.page.totalCount            
-            this.pageCount = res.page.totalCount/20
-            this.pageCount =  Math.ceil(this.pageCount)
-            if (event){
+            //用于下拉分页确认下一页有无数据            
+            if (event && !this.parameter.parentId){
+                console.log(1)
                 //是下拉分页，合并数据，关闭下啦动画
-                this.searchResults = this.searchResults.concat(res.dataList)                
+                this.columns = res.columns
+                let data = res.datas 
+                let rows = []
+                data.forEach(c => {
+                    rows.push(JSON.parse(c) )                    
+                });                  
+                this.searchResults = this.searchResults.concat(rows)                
                 event.complete();
             }else{
-                this.searchResults = res.dataList
+                console.log(2)
+                this.columns = res.columns
+                let data = res.datas 
+                let rows = []
+                data.forEach(c => {
+                    rows.push(JSON.parse(c) )                    
+                });  
+                console.log(rows)
+                this.searchResults = rows 
             }
+            loading.dismiss();
         } catch(err){
+            console.log(err)
             loading.dismiss();
             if (event){
                 event.complete();
@@ -69,6 +92,12 @@ export class searchMain {
         }
         
 
+    }
+
+    changeDocbase(){
+        this.parameter.ids = [null]
+        this.parameter.parentId = null
+        this.getList()        
     }
 
     /**
@@ -90,36 +119,48 @@ export class searchMain {
      * 跳转往预览页面，或进入下一级
      */
     async itemSelected(row){
-        if(row.objectType == 'file' ){
+        if(row.type == '3' ){
             let preview = this.modalCtrl.create(
                 previewPDF
                 // PreviewDocModal
-                , { docbase : this.parameter.docbase,row: row });
+                , { docbase : 'null',row: row });
             preview.present();
             preview.onDidDismiss(data => {
                 console.log(data);
             });
             return 
-        }
+        } 
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
-        this.parameter.ids.push(row.archiveCode);
-        this.parameter.parentId = row.archiveCode;
+        this.parameter.ids.push(row.id);
+        this.parameter.parentId = row.id;
         this.parameter.currentPage = 1;
         this.getList();
+    }
+
+    async getDocBaseLists(){
+        let res = await this._searchMainService.getDocBaseLists()
+        this.docBaseLists = res.libs
     }
 
     /**
      * 打开高级检索框
      */
-    openSearchAdvance(){
+    async openSearchAdvance(){
+        let res = await this._searchMainService.getDocBaseLists()
+        let docBaseLists = res.libs
         let advanceSearch = this.modalCtrl.create(
-            AdvanceSearchModal
-        );
-        advanceSearch.present();
-        advanceSearch.onDidDismiss(data => {
-            console.log(data);
+            AdvanceSearchModal,{docBaseLists : docBaseLists}
+        );        
+        advanceSearch.onDidDismiss(data => {            
+            if(!data.docbase){
+                return 
+            }
+            console.log(data.docbase.name)
+            this.parameter.libId = data.docbase.objectId
+            this.parameter.docbaseName = data.docbase.name
         });
+        advanceSearch.present();
         return 
     }
 

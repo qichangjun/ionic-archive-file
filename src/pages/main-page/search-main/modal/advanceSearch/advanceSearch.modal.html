@@ -16,14 +16,14 @@
         <ion-item>
           <ion-label>档案库</ion-label>
           <ion-select okText="确定" cancelText="取消" [(ngModel)]="filterParams.docbase">
-            <ion-option *ngFor="let docBase of docBaseLists" value="{{docBase.objectId}}">{{docBase.name}}</ion-option>
+            <ion-option *ngFor="let docBase of docBaseLists" value="{{docBase}}">{{docBase.name}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>        
       <div style=" bottom: 10px;
       position: absolute;
       right: 10px;">
-        <button ion-button color="secondary" (click)="confirm()">确定</button>
+        <button ion-button color="secondary" [disabled]="!filterParams.docbase" (click)="confirm()">确定</button>
         <button ion-button outline color="light" (click)="dismiss()">取消</button>
       </div>
       

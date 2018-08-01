@@ -83,6 +83,7 @@ export class SearchMainService {
         params.set('pageSize',parameters.pageSize)
         params.set('currentPage',parameters.currentPage)        
         params.set('archiveCode',parameters.parentId)        
+        params.set('libId',parameters.libId)
         return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getArchivesList'],{search:params})
             .toPromise()
             .then(res =>
@@ -102,7 +103,8 @@ export class SearchMainService {
         params.set('locale','zh_CN')
         params.set('pageSize',parameters.pageSize)
         params.set('currentPage',parameters.currentPage)        
-        params.set('archiveCode',parameters.parentId)
+        params.set('parentId',parameters.parentId)
+        params.set('libId',parameters.libId)
         return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getFileList'],{search:params})
             .toPromise()
             .then(res =>
