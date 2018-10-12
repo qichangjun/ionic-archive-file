@@ -61,7 +61,6 @@ export class searchMain {
             //确认分页数量,总数除以20，向上取整
             //用于下拉分页确认下一页有无数据            
             if (event && !this.parameter.parentId){
-                console.log(1)
                 //是下拉分页，合并数据，关闭下啦动画
                 this.columns = res.columns
                 let data = res.datas 
@@ -72,7 +71,6 @@ export class searchMain {
                 this.searchResults = this.searchResults.concat(rows)                
                 event.complete();
             }else{
-                console.log(2)
                 this.columns = res.columns
                 let data = res.datas 
                 let rows = []
@@ -132,6 +130,7 @@ export class searchMain {
         } 
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
+        this.parameter.keywords = '';
         this.parameter.ids.push(row.id);
         this.parameter.parentId = row.id;
         this.parameter.currentPage = 1;

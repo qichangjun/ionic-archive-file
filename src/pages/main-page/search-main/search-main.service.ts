@@ -115,6 +115,23 @@ export class SearchMainService {
             );
     }
 
+    async getUrlById(id): Promise<any> {        
+        let params = new URLSearchParams();
+        let userInfo = await this._storageInfoService.getAuthInfo()   
+        params.set('accessKey', userInfo.accessKey);             
+        params.set('accessToken', userInfo.accessToken)
+        params.set('locale','zh_CN')    
+        params.set('id',id)   
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getUrlById'],{search:params})
+            .toPromise()
+            .then(res =>
+                this._httpHanldeService.extractData(res)
+            )
+            .catch(error =>
+                this._httpHanldeService.handleError(error)
+            );
+    }
+
     async getPdf(): Promise<any> {                                
         let params = new URLSearchParams();                            
         return this.http.get(       

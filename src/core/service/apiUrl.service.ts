@@ -11,4 +11,6 @@ export class ApiUrlService {
     login = '/user/zjny/login?';
     getFileList = '/search/zjny/files';
     getDocBaseLists = '/user/zjny/lib/list';
+
+    getUrlById = '/file/getElecFileId'
 }
