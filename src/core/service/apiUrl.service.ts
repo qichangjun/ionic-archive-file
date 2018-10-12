@@ -9,5 +9,5 @@ export class ApiUrlService {
     getFileInfo = '/attribute/get_attributes';
     getFileList = '/file/list';
     getPdf = '/file/previewtest'
-    getEleId = '/file/getElecFileId '
+    getEleId = '/file/getElecFileId'
 }
