@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, NavParams } from 'ionic-angular';
 import * as PDFJS from "pdfjs-dist/webpack.js";
 import { SearchMainService } from "../../search-main.service";
 @Component({
@@ -15,9 +15,12 @@ export class previewPDF {
     totalPage : number = 1; 
     pdfDoc : any;
     pageRendering : boolean = false;
+    row : any = {}
     constructor(
+        params: NavParams,
         private _SearchMainService: SearchMainService,
         public navCtrl: NavController, public viewCtrl: ViewController) {
+            this.row = params.get('row')
     }
 
     dismiss() {
@@ -29,7 +32,8 @@ export class previewPDF {
     }
 
     async getFileBase64() {
-        let data = await this._SearchMainService.getPdf()               
+        let id = await this._SearchMainService.getEleId(this.row.id) 
+        let data = await this._SearchMainService.getPdf(id)               
         this.PDFJSViewer.getDocument(data._body).then(pdf => {  
             this.pdfDoc = pdf  
             this.totalPage = pdf.numPages    

@@ -95,10 +95,28 @@ export class SearchMainService {
             );
     }
 
-    async getPdf(): Promise<any> {                                
-        let params = new URLSearchParams();                            
+    async getEleId(id): Promise<any> {        
+        let params = new URLSearchParams();
+        let userInfo = await this._storageInfoService.getAuthInfo()                
+        params.set('accessToken', userInfo.accessToken)
+        params.set('locale','zh_CN')
+        params.set('id',id)
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getEleId'],{search:params})
+            .toPromise()
+            .then(res =>
+                this._httpHanldeService.extractData(res)
+            )
+            .catch(error =>
+                this._httpHanldeService.handleError(error)
+            );
+    }
+    
+    async getPdf(id): Promise<any> {                                
+        let params = new URLSearchParams();    
+        params.set('id',id)        
+        params.set('type','download')             
         return this.http.get(       
-           this._baseConfig.getBaseUrl() + this._ApiUrlService['getPdf']
+           'http://21.15.116.51/seas/viewServlet.do'
            ,{search:params,responseType:2})
             .toPromise()
             .then(res =>
