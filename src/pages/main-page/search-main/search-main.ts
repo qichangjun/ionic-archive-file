@@ -3,6 +3,7 @@ import { SearchMainService } from './search-main.service';
 import { LoadingController,ModalController } from 'ionic-angular';
 import { PreviewDocModal } from './modal/previewDoc/previewDoc.modal';
 import { previewPDF } from './modal/previewPDF/previewPDF';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
     selector: 'search-main',
@@ -23,6 +24,7 @@ export class searchMain {
     searchResults: Array<any> = [];
     pageCount = 1;
     constructor(
+        private iab: InAppBrowser,
         private _searchMainService: SearchMainService,
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
@@ -91,15 +93,17 @@ export class searchMain {
      */
     async itemSelected(row){
         if(row.objectType == 'file' ){
-            let preview = this.modalCtrl.create(
-                previewPDF
-                // PreviewDocModal
-                , { docbase : this.parameter.docbase,row: row });
-            preview.present();
-            preview.onDidDismiss(data => {
-                console.log(data);
-            });
+            const browser = this.iab.create('https://baidu.com?viewToken=1');
             return 
+            // let preview = this.modalCtrl.create(
+            //     previewPDF
+            //     // PreviewDocModal
+            //     , { docbase : this.parameter.docbase,row: row });
+            // preview.present();
+            // preview.onDidDismiss(data => {
+            //     console.log(data);
+            // });
+            // return 
         }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页

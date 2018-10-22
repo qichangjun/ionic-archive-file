@@ -3,7 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -56,6 +56,7 @@ import { previewPDF } from '../pages/main-page/search-main/modal/previewPDF/prev
     HTTP,
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

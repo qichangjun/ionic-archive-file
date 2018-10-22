@@ -3,6 +3,7 @@ import { LoginService } from './login.service';
 import { Storage } from '@ionic/storage';
 import { LoadingController,NavController } from 'ionic-angular';
 import { mainPage } from '../main-page/main-page';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   selector: 'login-page',
@@ -15,6 +16,7 @@ export class LoginPage {
     password : String 
   }
   constructor(
+    private iab: InAppBrowser,
     public navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private storage: Storage,
@@ -26,6 +28,11 @@ export class LoginPage {
     }
     this.storage.remove('AuthInfo');
   }
+
+  createWeb(){
+    const browser = this.iab.create('https://baidu.com');
+  }
+  
   async login(){
     let loading = this.loadingCtrl.create({
       content: '请稍等...'
