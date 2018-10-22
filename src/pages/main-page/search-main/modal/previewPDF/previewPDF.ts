@@ -32,8 +32,7 @@ export class previewPDF {
         this.getFileBase64()
     }
 
-    async getFileBase64() {
-        // let id = await this._SearchMainService.getUrlById(this.row.id)
+    async getFileBase64() {        
         let data = await this._SearchMainService.getPdf()               
         this.PDFJSViewer.getDocument(data._body).then(pdf => {  
             this.pdfDoc = pdf  

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { MyApp } from './app.component';
 
 import { ListPage } from '../pages/list/list';
@@ -58,6 +59,7 @@ import { AdvanceSearchModal } from '../pages/main-page/search-main/modal/advance
     HTTP,
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

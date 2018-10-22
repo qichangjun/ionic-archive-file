@@ -70,7 +70,8 @@
       "cordova-plugin-advanced-http": {},
       "cordova-plugin-app-version": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-document-viewer": {}
+      "cordova-plugin-document-viewer": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android",
