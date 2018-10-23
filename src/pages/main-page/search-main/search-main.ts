@@ -93,17 +93,9 @@ export class searchMain {
      */
     async itemSelected(row){
         if(row.objectType == 'file' ){
+            let res = await this._searchMainService.getPreviewToken(row.id)
             const browser = this.iab.create('https://baidu.com?viewToken=1');
-            return 
-            // let preview = this.modalCtrl.create(
-            //     previewPDF
-            //     // PreviewDocModal
-            //     , { docbase : this.parameter.docbase,row: row });
-            // preview.present();
-            // preview.onDidDismiss(data => {
-            //     console.log(data);
-            // });
-            // return 
+            return    
         }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
