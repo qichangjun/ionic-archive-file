@@ -99,7 +99,7 @@ export class searchMain {
                 const browser = this.iab.create(path);                
             }else{
                 let viewToken = await this._searchMainService.getPreviewToken(info)
-                const browser = this.iab.create('https://baidu.com?viewToken=' + viewToken);
+                const browser = this.iab.create('https://126.10.9.207:7080/osprey/?viewToken=' + viewToken);
             }                        
             return    
         }

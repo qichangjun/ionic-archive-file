@@ -136,7 +136,7 @@ export class SearchMainService {
         let userInfo = await this._storageInfoService.getAuthInfo()                
         params.set('accessToken', userInfo.accessToken)
         params.set('locale','zh_CN')
-        params.set('id',id)
+        params.set('fileId',id)
         return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getElectronicRecord'],{search:params})
             .toPromise()
             .then(res =>
