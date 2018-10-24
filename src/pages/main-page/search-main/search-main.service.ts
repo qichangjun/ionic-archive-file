@@ -95,13 +95,49 @@ export class SearchMainService {
             );
     }
 
-    async getPreviewToken(id): Promise<any> {        
+    async getPreviewToken(info): Promise<any> {        
+        let params = new URLSearchParams();
+        let userInfo = await this._storageInfoService.getAuthInfo()                
+        params.set('accessToken', userInfo.accessToken)
+        params.set('locale','zh_CN')
+        for(let key in info){
+            params.set(key,info[key])
+        }
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getPreviewToken'],{search:params})
+            .toPromise()
+            .then(res =>
+                this._httpHanldeService.extractData(res)
+            )
+            .catch(error =>
+                this._httpHanldeService.handleError(error)
+            );
+    }
+
+    async getPdfPreviewPath(info): Promise<any> {        
+        let params = new URLSearchParams();
+        let userInfo = await this._storageInfoService.getAuthInfo()                
+        params.set('accessToken', userInfo.accessToken)
+        params.set('locale','zh_CN')
+        for(let key in info){
+            params.set(key,info[key])
+        }
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getPdfPreviewPath'],{search:params})
+            .toPromise()
+            .then(res =>
+                this._httpHanldeService.extractData(res)
+            )
+            .catch(error =>
+                this._httpHanldeService.handleError(error)
+            );
+    }
+
+    async getElectronicRecord(id): Promise<any> {        
         let params = new URLSearchParams();
         let userInfo = await this._storageInfoService.getAuthInfo()                
         params.set('accessToken', userInfo.accessToken)
         params.set('locale','zh_CN')
         params.set('id',id)
-        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getPreviewToken'],{search:params})
+        return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getElectronicRecord'],{search:params})
             .toPromise()
             .then(res =>
                 this._httpHanldeService.extractData(res)

@@ -93,8 +93,14 @@ export class searchMain {
      */
     async itemSelected(row){
         if(row.objectType == 'file' ){
-            let res = await this._searchMainService.getPreviewToken(row.id)
-            const browser = this.iab.create('https://baidu.com?viewToken=1');
+            let info = await this._searchMainService.getElectronicRecord(row.id)
+            if (info.type == 'pdf'){
+                let path = await this._searchMainService.getPdfPreviewPath(info)
+                const browser = this.iab.create(path);                
+            }else{
+                let viewToken = await this._searchMainService.getPreviewToken(info)
+                const browser = this.iab.create('https://baidu.com?viewToken=' + viewToken);
+            }                        
             return    
         }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
