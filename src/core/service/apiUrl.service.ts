@@ -7,9 +7,9 @@ export class ApiUrlService {
     getFileInfo = '/attribute/get_attributes';
     getPdf = '/file/previewtest'
     
-    getArchivesList = '/search/zjny/records';
+    getArchivesList = '/records/list';
     login = '/user/zjny/login?';
-    getFileList = '/search/zjny/files';
+    getFileList = '/file/zjny/list';
     getDocBaseLists = '/user/zjny/lib/list';
 
     getUrlById = '/file/getElecFileId'
