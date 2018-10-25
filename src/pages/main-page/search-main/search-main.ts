@@ -18,9 +18,10 @@ export class searchMain {
         currentPage : 1,
         parentId : null,
         pageSize : 20,
-        type: 2,
+        type: null,
         totalCount : 0,
-        ids : [null]
+        ids : [null],
+        isFile : false
     }
     columns = [];
     docBaseLists = [];
@@ -95,6 +96,7 @@ export class searchMain {
     }
 
     changeDocbase(){
+        this.parameter.type = null
         this.parameter.ids = [null]
         this.parameter.parentId = null
         this.getList()        
@@ -124,19 +126,25 @@ export class searchMain {
                 content: '请稍等...'
             });
             loading.present();
-            let info = await this._searchMainService.getElectronicRecord(row.id,this.parameter.libId)
-            if (info.type == 'pdf'){
-                let path = await this._searchMainService.getPdfPreviewPath(info)
-                const browser = this.iab.create(path);                
-            }else{
-                let viewToken = await this._searchMainService.getPreviewToken(info)
-                const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);
-            }        
-            loading.dismiss();            
-            return   
+            try{
+                let info = await this._searchMainService.getElectronicRecord(row.id,this.parameter.libId)
+                if (info.type == 'pdf' || info.type == 'PDF'){
+                    let path = await this._searchMainService.getPdfPreviewPath(info)
+                    const browser = this.iab.create(path);                
+                }else{
+                    let viewToken = await this._searchMainService.getPreviewToken(info)
+                    const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);
+                }        
+                loading.dismiss();            
+                return   
+            }catch(err){
+                loading.dismiss();
+            }
+            
         }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
+        this.parameter.type = row.type
         this.parameter.keywords = '';
         this.parameter.ids.push(row.id);
         this.parameter.parentId = row.id;
@@ -201,7 +209,12 @@ export class searchMain {
             return 
         }
         this.parameter.ids.pop()
-        this.parameter.parentId = this.parameter.ids[this.parameter.ids.length - 1]        
+        this.parameter.parentId = this.parameter.ids[this.parameter.ids.length - 1]      
+        if(!this.parameter.parentId){
+            this.parameter.type = null
+        }else{
+            this.parameter.type = Number(this.parameter.type) - 1
+        }
         this.getList()
     }
 }

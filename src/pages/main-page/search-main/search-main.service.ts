@@ -9,6 +9,7 @@ import { baseConfig } from '../../../core/service/baseConfig.service';
 import { ApiUrlService } from '../../../core/service/apiUrl.service';
 import { httpHanldeService } from '../../../core/service/httpHandle.service';
 import { storageInfoService } from '../../../core/service/storageInfo.service';
+import { ParseSpan } from '@angular/compiler';
 
 @Injectable()
 
@@ -84,6 +85,7 @@ export class SearchMainService {
         params.set('currentPage',parameters.currentPage)        
         params.set('archiveCode',parameters.parentId)        
         params.set('libId',parameters.libId)
+        params.set('type',parameters.type)
         return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getArchivesList'],{search:params})
             .toPromise()
             .then(res =>
@@ -105,6 +107,7 @@ export class SearchMainService {
         params.set('currentPage',parameters.currentPage)        
         params.set('parentId',parameters.parentId)
         params.set('libId',parameters.libId)
+        params.set('type',parameters.type)
         return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getFileList'],{search:params})
             .toPromise()
             .then(res =>

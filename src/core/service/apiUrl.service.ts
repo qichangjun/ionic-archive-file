@@ -15,7 +15,7 @@ export class ApiUrlService {
     getUrlById = '/file/getElecFileId'
     
     getEleId = '/file/getElecFileId'
-    getPreviewToken = '/file/getPreviewToken'
+    getPreviewToken = '/filepreview/getPreviewToken'
     getElectronicRecord = '/file/getElectronicRecord'
     getPdfPreviewPath = '/filepreview/getPdfPreviewPath'
 
