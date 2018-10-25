@@ -120,16 +120,15 @@ export class searchMain {
      */
     async itemSelected(row){
         if(row.type == '3' ){
-            const browser = this.iab.create('https://baidu.com');
-            // let preview = this.modalCtrl.create(
-            //     previewPDF
-            //     // PreviewDocModal
-            //     , { docbase : 'null',row: row });
-            // preview.present();
-            // preview.onDidDismiss(data => {
-            //     console.log(data);
-            // });
-            return 
+            let info = await this._searchMainService.getElectronicRecord(row.id)
+            if (info.type == 'pdf'){
+                let path = await this._searchMainService.getPdfPreviewPath(info)
+                const browser = this.iab.create(path);                
+            }else{
+                let viewToken = await this._searchMainService.getPreviewToken(info)
+                const browser = this.iab.create('http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken);
+            }                        
+            return   
         } 
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
