@@ -22,7 +22,6 @@ export class MyApp {
     public _storageInfoService : storageInfoService,
   ) {
     this.initializeApp();
-    console.log(1) 
   }
 
   initializeApp() {

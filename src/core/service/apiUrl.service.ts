@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 export class ApiUrlService {
     login = '/user/login';
     search = '/search/full_text';
-    getArchivesList = '/search/common';
+    getArchivesList = '/record/list';
     // getFileList = '/navigation/list';
     getFileInfo = '/attribute/get_attributes';
-    getFileList = '/file/list';
+    getFileList = '/file/ghj/list';
     getPdf = '/file/previewtest'
     getEleId = '/file/getElecFileId'
-    getPreviewToken = '/file/getPreviewToken'
+    getPreviewToken = '/filepreview/getPreviewToken'
     getElectronicRecord = '/file/getElectronicRecord'
-    getPdfPreviewPath = '/file/getPdfPreviewPath'
+    getPdfPreviewPath = '/filepreview/getPdfPreviewPath'
 }
