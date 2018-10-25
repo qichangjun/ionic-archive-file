@@ -120,7 +120,7 @@ export class searchMain {
      */
     async itemSelected(row){
         if(row.type == '3' ){
-            let info = await this._searchMainService.getElectronicRecord(row.id)
+            let info = await this._searchMainService.getElectronicRecord(row.id,this.parameter.libId)
             if (info.type == 'pdf'){
                 let path = await this._searchMainService.getPdfPreviewPath(info)
                 const browser = this.iab.create(path);                
@@ -129,7 +129,7 @@ export class searchMain {
                 const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);
             }                        
             return   
-        } 
+        }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
         this.parameter.keywords = '';

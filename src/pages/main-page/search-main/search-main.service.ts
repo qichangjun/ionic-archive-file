@@ -164,12 +164,13 @@ export class SearchMainService {
             );
     }
 
-    async getElectronicRecord(id): Promise<any> {        
+    async getElectronicRecord(id,libId): Promise<any> {        
         let params = new URLSearchParams();
         let userInfo = await this._storageInfoService.getAuthInfo()                
         params.set('accessToken', userInfo.accessToken)
         params.set('locale','zh_CN')
         params.set('fileId',id)
+        params.set('libId',libId)
         return this.http.get(this._baseConfig.getBaseUrl() + this._ApiUrlService['getElectronicRecord'],{search:params})
             .toPromise()
             .then(res =>
