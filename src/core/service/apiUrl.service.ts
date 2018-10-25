@@ -13,4 +13,10 @@ export class ApiUrlService {
     getDocBaseLists = '/user/zjny/lib/list';
 
     getUrlById = '/file/getElecFileId'
+    
+    getEleId = '/file/getElecFileId'
+    getPreviewToken = '/file/getPreviewToken'
+    getElectronicRecord = '/file/getElectronicRecord'
+    getPdfPreviewPath = '/file/getPdfPreviewPath'
+
 }
