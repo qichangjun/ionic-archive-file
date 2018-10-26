@@ -53,7 +53,7 @@
                         src="assets/images/icon/unknown.png" alt="">
                 </ion-avatar>
                 <ng-container *ngFor="let column of columns;let i = index">
-                    {{searchResult[column]}}
+                    {{searchResult[column] == 'null' ? ' ' : searchResult[column]}} 
                     <span *ngIf="i < columns.length"> |</span>
                 </ng-container>             
             </ion-item>
