@@ -28,11 +28,12 @@ export class MyApp {
     this.platform.ready().then(() => {
       (async ()=>{
         let res = await this._storageInfoService.getAuthInfo()
-        if (res) {
-          this.nav.setRoot(mainPage)
-          return 
-        }
-          this.nav.setRoot(LoginPage)
+        this.nav.setRoot(mainPage)
+        //if (res) {
+         // this.nav.setRoot(mainPage)
+         // return 
+        //}
+         // this.nav.setRoot(LoginPage)
       })() 
       this.statusBar.styleDefault();
       this.splashScreen.hide();

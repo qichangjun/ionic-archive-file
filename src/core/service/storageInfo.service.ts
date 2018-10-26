@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 export class storageInfoService{
     constructor(private storage: Storage,){}
     getAuthInfo(){
-        return this.storage.get('AuthInfo').then(val => val);
+        return {}
+        //return this.storage.get('AuthInfo').then(val => val);
     }
 }
