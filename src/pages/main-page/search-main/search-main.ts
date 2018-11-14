@@ -64,6 +64,7 @@ export class searchMain {
                 this.searchResults = res.dataList
             }
         } catch(err){
+            console.log(111)
             loading.dismiss();
             if (event){
                 event.complete();
