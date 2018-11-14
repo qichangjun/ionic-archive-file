@@ -128,13 +128,13 @@ export class searchMain {
             loading.present();
             try{
                 let info = await this._searchMainService.getElectronicRecord(row.id,this.parameter.libId)
-                if (info.type == 'pdf' || info.type == 'PDF'){
-                    let path = await this._searchMainService.getPdfPreviewPath(info)
-                    const browser = this.iab.create(path);                
-                }else{
-                    let viewToken = await this._searchMainService.getPreviewToken(info)
-                    const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);
-                }        
+                // if (info.type == 'pdf' || info.type == 'PDF'){
+                //     let path = await this._searchMainService.getPdfPreviewPath(info)
+                //     const browser = this.iab.create(path);                
+                // }else{
+                let viewToken = await this._searchMainService.getPreviewToken(info)
+                const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);
+                // }        
                 loading.dismiss();            
                 return   
             }catch(err){
