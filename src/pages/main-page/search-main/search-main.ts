@@ -29,7 +29,7 @@ export class searchMain {
         private loadingCtrl: LoadingController,
         public modalCtrl: ModalController
     ) {      
-        this.getList()
+        //this.getList()
     }
 
     /**
@@ -49,7 +49,7 @@ export class searchMain {
                 res = await this._searchMainService.getArchivesList(this.parameter);            
             } else {
                 res = await this._searchMainService.getFileList(this.parameter);
-            }            
+            }               
             loading.dismiss();
             //确认分页数量,总数除以20，向上取整
             //用于下拉分页确认下一页有无数据
@@ -64,7 +64,6 @@ export class searchMain {
                 this.searchResults = res.dataList
             }
         } catch(err){
-            console.log(111)
             loading.dismiss();
             if (event){
                 event.complete();
@@ -79,13 +78,16 @@ export class searchMain {
      * @param event 用于关闭分页下啦动画
      */
     async changePage(event) {  
-        return       
-        // if (this.parameter.currentPage >= this.pageCount) {
-        //     event.complete()
-        //     return
-        // }
-        // this.parameter.currentPage++;
-        // this.getList(event)                        
+        if (this.parameter.parentId){ 
+            event.complete()
+            return 
+        }     
+        if (this.parameter.currentPage >= this.pageCount) {
+            event.complete()
+            return
+        }
+        this.parameter.currentPage++;
+        this.getList(event)                        
     }
 
     /**
@@ -95,20 +97,21 @@ export class searchMain {
      */
     async itemSelected(row){
         if(row.objectType == 'file' ){
+            let loading = this.loadingCtrl.create({
+                content: '请稍等...'
+            });
+            loading.present();
             let info = await this._searchMainService.getElectronicRecord(row.id)
-            if (info.type == 'pdf'){
-                let path = await this._searchMainService.getPdfPreviewPath(info)
-                const browser = this.iab.create(path);                
-            }else{
-                let viewToken = await this._searchMainService.getPreviewToken(info)
-                const browser = this.iab.create('http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken);
-            }                        
+            let viewToken = await this._searchMainService.getPreviewToken(info)
+            loading.dismiss();
+            window.location.href = 'http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken
+            //const browser = this.iab.create('http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken);                      
             return    
         }
         //点击的是档案时，进入下一层，向ids数组中添加该档案的id
         //副职parentId,并且跳转到第一页
-        this.parameter.ids.push(row.archiveCode);
-        this.parameter.parentId = row.archiveCode;
+        this.parameter.ids.push(row.id);
+        this.parameter.parentId = row.id;
         this.parameter.currentPage = 1;
         this.getList();
     }
@@ -154,8 +157,8 @@ export class searchMain {
             this.getList()
             return 
         }
-        this.parameter.ids.pop()
-        this.parameter.parentId = this.parameter.ids[this.parameter.ids.length - 1]        
+        this.parameter.ids = [null]
+        this.parameter.parentId = null     
         this.getList()
     }
 }

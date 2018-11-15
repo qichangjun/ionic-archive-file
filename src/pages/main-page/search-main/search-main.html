@@ -1,11 +1,11 @@
 <ion-header class="top--box">
     <ion-navbar>
-        <button ion-button menuToggle>
+        <!-- <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
-        </button>
+        </button> -->
         <ion-title>
-                <form (ngSubmit)="parameter.currentPage=1;getList()" class="search--input--box">   
-                        <ion-input placeholder="请输入关键字" class="search--input" type="text" [(ngModel)]="parameter.keywords" name="title"></ion-input> 
+                <form (ngSubmit)="parameter.currentPage=1;search()" class="search--input--box">   
+                        <ion-input placeholder="" class="search--input" type="text" [(ngModel)]="parameter.keywords" name="title"></ion-input> 
                         <span class="fa fa-search" (click)="parameter.currentPage=1;search()"></span>                     
                 </form>   
         </ion-title>
@@ -20,9 +20,9 @@
         </ion-refresher-content>
 
     </ion-refresher>
-    <div class="item--count--box">
-        <span class="item--count">共{{parameter.totalCount}}个 {{parameter.parentId ? '文件' : '档案'}}</span>
-        <a *ngIf="parameter.parentId" style="float:right" (click)="gotoPrevious()">返回上一级</a>
+    <div class="item--count--box" *ngIf="parameter.parentId" >
+        <span class="item--count"></span>
+        <a  style="float:right;line-height: 1px"  (click)="gotoPrevious()">返回上一级</a>
     </div>
     <div *ngIf="searchResults.length == 0" class="no--data">
         <img src="assets/imgs/no_result.png" alt="">
@@ -35,12 +35,11 @@
                 <ion-avatar item-start>
                     <img onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="searchResult.objectType == 'folder'"
                         src="assets/images/icon/archives.png" alt="">
-
                     <img class="data--list--doc--icon" *ngIf="searchResult.objectType == 'file'" onerror="this.src='assets/images/icon/unknown.png'"
-                        src="assets/images/icon/pdf.png" alt="">
+                        src="assets/images/icon/dw_records.png" alt="">
                 </ion-avatar>
                 <ng-container *ngIf="searchResult.objectType == 'folder'">
-                    <h2 class="object--name">
+                    <h2 class="object--name" style="word-wrap: break-word;word-break: break-all;white-space: normal">
                         {{searchResult.title}}
                     </h2>
                     <p>
@@ -48,9 +47,9 @@
                     </p>
                 </ng-container>
                 <ng-container *ngIf="searchResult.objectType == 'file'">
-                    <h2 class="object--name">
+                    <div class="object--name" style="word-wrap: break-word;word-break: break-all;white-space: normal">
                         {{searchResult.name}}
-                    </h2>
+                    </div>
 
                 </ng-container>
 
