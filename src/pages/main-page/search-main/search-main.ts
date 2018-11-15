@@ -78,13 +78,14 @@ export class searchMain {
      * 分页方法
      * @param event 用于关闭分页下啦动画
      */
-    async changePage(event) {        
-        if (this.parameter.currentPage >= this.pageCount) {
-            event.complete()
-            return
-        }
-        this.parameter.currentPage++;
-        this.getList(event)                        
+    async changePage(event) {  
+        return       
+        // if (this.parameter.currentPage >= this.pageCount) {
+        //     event.complete()
+        //     return
+        // }
+        // this.parameter.currentPage++;
+        // this.getList(event)                        
     }
 
     /**
@@ -141,6 +142,16 @@ export class searchMain {
      */
     gotoPrevious(){
         if (this.parameter.ids.length == 1){
+            return 
+        }
+        this.parameter.ids.pop()
+        this.parameter.parentId = this.parameter.ids[this.parameter.ids.length - 1]        
+        this.getList()
+    }
+
+    search(){
+        if (this.parameter.ids.length == 1){
+            this.getList()
             return 
         }
         this.parameter.ids.pop()

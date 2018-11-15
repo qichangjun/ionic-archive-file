@@ -6,7 +6,7 @@
         <ion-title>
                 <form (ngSubmit)="parameter.currentPage=1;getList()" class="search--input--box">   
                         <ion-input placeholder="请输入关键字" class="search--input" type="text" [(ngModel)]="parameter.keywords" name="title"></ion-input> 
-                        <span class="fa fa-search" (click)="parameter.currentPage=1;getList()"></span>                     
+                        <span class="fa fa-search" (click)="parameter.currentPage=1;search()"></span>                     
                 </form>   
         </ion-title>
     </ion-navbar>
