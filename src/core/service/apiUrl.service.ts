@@ -7,16 +7,16 @@ export class ApiUrlService {
     getFileInfo = '/attribute/get_attributes';
     getPdf = '/file/previewtest'
     
-    getArchivesList = '/record/list';
+    getArchivesList = '/record/zjny/list';
     login = '/user/zjny/login?';
     getFileList = '/file/zjny/list';
     getDocBaseLists = '/user/zjny/lib/list';
 
-    getUrlById = '/file/getElecFileId'
+    getUrlById = '/file/zjny/getElecFileId'
     
-    getEleId = '/file/getElecFileId'
+    getEleId = '/file/zjny/getElecFileId'
     getPreviewToken = '/filepreview/getPreviewToken'
-    getElectronicRecord = '/file/getElectronicRecord'
+    getElectronicRecord = '/file/zjny/getElectronicRecord'
     getPdfPreviewPath = '/filepreview/getPdfPreviewPath'
 
 }

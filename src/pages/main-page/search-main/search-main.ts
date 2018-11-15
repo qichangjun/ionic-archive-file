@@ -80,7 +80,6 @@ export class searchMain {
                 data.forEach(c => {
                     rows.push(JSON.parse(c) )                    
                 });  
-                console.log(rows)
                 this.searchResults = rows 
             }
             loading.dismiss();
