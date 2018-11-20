@@ -34,7 +34,7 @@ import { previewPDF } from '../pages/main-page/search-main/modal/previewPDF/prev
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{backButtonText:'返回'}),
     FormsModule,ReactiveFormsModule,
     CoreModule,
     HttpModule,

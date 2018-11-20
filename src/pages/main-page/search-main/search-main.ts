@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchMainService } from './search-main.service';
-import { LoadingController,ModalController } from 'ionic-angular';
+import { LoadingController, ModalController, NavParams,NavController } from 'ionic-angular';
 import { PreviewDocModal } from './modal/previewDoc/previewDoc.modal';
 import { previewPDF } from './modal/previewPDF/previewPDF';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -18,18 +18,22 @@ export class searchMain {
         parentId : null,
         pageSize : 20,
         type: 2,
-        totalCount : 0,
-        ids : [null]
+        totalCount : 0
     }
     searchResults: Array<any> = [];
     pageCount = 1;
     constructor(
+        public navParams: NavParams,
         private iab: InAppBrowser,
         private _searchMainService: SearchMainService,
         private loadingCtrl: LoadingController,
-        public modalCtrl: ModalController
+        public modalCtrl: ModalController,
+        public navCtrl: NavController
     ) {      
-        //this.getList()
+        this.parameter.parentId = this.navParams.get('parentId');        
+        if (this.parameter.parentId){
+            this.getList()
+        }
     }
 
     /**
@@ -99,21 +103,26 @@ export class searchMain {
         if(row.objectType == 'file' ){
             let loading = this.loadingCtrl.create({
                 content: '请稍等...'
-            });
+            });                         
             loading.present();
-            let info = await this._searchMainService.getElectronicRecord(row.id)
-            let viewToken = await this._searchMainService.getPreviewToken(info)
-            loading.dismiss();
-            window.location.href = 'http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken
-            //const browser = this.iab.create('http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken);                      
-            return    
-        }
-        //点击的是档案时，进入下一层，向ids数组中添加该档案的id
-        //副职parentId,并且跳转到第一页
-        this.parameter.ids.push(row.id);
+            try{
+                let info = await this._searchMainService.getElectronicRecord(row.id)
+                let viewToken = await this._searchMainService.getPreviewToken(info)
+                loading.dismiss();
+                this.navCtrl.push(PreviewDocModal,{
+                    viewToken : viewToken
+                })   
+                return 
+            }catch(err){
+                loading.dismiss();
+                return 
+                //const browser = this.iab.create('http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken);                                      
+            }
+        }        
+        //副职parentId,并且跳转到第一页        
         this.parameter.parentId = row.id;
         this.parameter.currentPage = 1;
-        this.getList();
+        this.getList();        
     }
 
     /**
@@ -144,20 +153,14 @@ export class searchMain {
      * 返回上一级
      */
     gotoPrevious(){
-        if (this.parameter.ids.length == 1){
+        if (!this.parameter.parentId){
             return 
-        }
-        this.parameter.ids.pop()
-        this.parameter.parentId = this.parameter.ids[this.parameter.ids.length - 1]        
+        }        
+        this.parameter.parentId = null
         this.getList()
     }
 
-    search(){
-        if (this.parameter.ids.length == 1){
-            this.getList()
-            return 
-        }
-        this.parameter.ids = [null]
+    search(){        
         this.parameter.parentId = null     
         this.getList()
     }

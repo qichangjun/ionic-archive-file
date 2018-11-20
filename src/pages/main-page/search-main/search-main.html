@@ -5,7 +5,7 @@
         </button> -->
         <ion-title>
                 <form (ngSubmit)="parameter.currentPage=1;search()" class="search--input--box">   
-                        <ion-input placeholder="" class="search--input" type="text" [(ngModel)]="parameter.keywords" name="title"></ion-input> 
+                        <ion-input placeholder="请输入搜索关键字" class="search--input" type="text" [(ngModel)]="parameter.keywords" name="title"></ion-input> 
                         <span class="fa fa-search" (click)="parameter.currentPage=1;search()"></span>                     
                 </form>   
         </ion-title>
@@ -26,7 +26,7 @@
     </div>
     <div *ngIf="searchResults.length == 0" class="no--data">
         <img src="assets/imgs/no_result.png" alt="">
-        <p>暂无相关数据</p>
+        <p>杭州市规划数字档案馆</p>
     </div>
 
     <div *ngIf="searchResults.length > 0">
@@ -36,7 +36,7 @@
                     <img onerror="this.src='assets/images/icon/unknown.png'" class="data--list--doc--icon" *ngIf="searchResult.objectType == 'folder'"
                         src="assets/images/icon/archives.png" alt="">
                     <img class="data--list--doc--icon" *ngIf="searchResult.objectType == 'file'" onerror="this.src='assets/images/icon/unknown.png'"
-                        src="assets/images/icon/dw_records.png" alt="">
+                        src="assets/images/icon/dw-records.png" alt="">
                 </ion-avatar>
                 <ng-container *ngIf="searchResult.objectType == 'folder'">
                     <h2 class="object--name" style="word-wrap: break-word;word-break: break-all;white-space: normal">
