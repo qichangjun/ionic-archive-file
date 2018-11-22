@@ -118,11 +118,12 @@ export class searchMain {
                 return 
                 //const browser = this.iab.create('http://126.10.9.207:7080/osprey/#!/?viewToken=' + viewToken);                                      
             }
-        }        
-        //副职parentId,并且跳转到第一页        
-        this.parameter.parentId = row.id;
-        this.parameter.currentPage = 1;
-        this.getList();        
+        }else{
+            //副职parentId,并且跳转到第一页        
+            this.parameter.parentId = row.id;
+            this.parameter.currentPage = 1;
+            this.getList();  
+        }                      
     }
 
     /**
