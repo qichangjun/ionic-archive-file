@@ -1,27 +1,15 @@
 <ion-header>
     <ion-navbar>
-            <ion-buttons start>
-                    <button ion-button (click)="dismiss()">
-                        <ion-icon name="md-close"></ion-icon>
-                    </button>
-                </ion-buttons>
-        <ion-title>预览图片</ion-title>        
+        <ion-buttons start>
+      
+        </ion-buttons>
+        <ion-title>预览文件</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 <ion-content>
     <div class="container">
-        <ul id="images" class="pictures">
-            <li>
-                <img class="list-img" style="display:none" src="./assets/images/banner--case.jpg" alt="Picture 1">
-            </li>
-            <li>
-                <img class="list-img" style="display:none" src="./assets/images/blue--bg.jpg" alt="Picture 2">
-            </li>
-            <li>
-                <img class="list-img" style="display:none" src="./assets/images/buss.png" alt="Picture 3">
-            </li>
-        </ul>
+        <iframe id="iframePreview" src="" frameBorder="0" style="width:100%;height:calc(100% - 50px)"></iframe>
     </div>
 </ion-content>

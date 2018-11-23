@@ -50,11 +50,12 @@
                         src="assets/images/icon/archives.png" alt="">
 
                     <img class="data--list--doc--icon" *ngIf="searchResult.type == '3'" onerror="this.src='assets/images/icon/unknown.png'"
-                        src="assets/images/icon/unknown.png" alt="">
+                        src="assets/images/icon/dw-records.png" alt="">
                 </ion-avatar>
                 <ng-container *ngFor="let column of columns;let i = index">
-                    {{searchResult[column] == 'null' ? ' ' : searchResult[column]}} 
-                    <span *ngIf="i < columns.length"> |</span>
+                    <span class="search--result--colum">{{searchResult[column] == 'null' ? ' ' : searchResult[column]}} </span>
+                    
+                    <!-- <span *ngIf="i < columns.length"> |</span> -->
                 </ng-container>             
             </ion-item>
         </ion-list>

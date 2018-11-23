@@ -22,13 +22,13 @@ export class MyApp {
     public _storageInfoService : storageInfoService,
   ) {
     this.initializeApp();
-    console.log(1) 
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(() => {      
       (async ()=>{
         let res = await this._storageInfoService.getAuthInfo()
+        // this.nav.setRoot(mainPage)
         if (res) {
           this.nav.setRoot(mainPage)
           return 

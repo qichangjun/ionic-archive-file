@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable,ViewChild } from '@angular/core';
 import { Response } from '@angular/http';
 import { ToastController } from 'ionic-angular';
 import { HTTPResponse } from '@ionic-native/http';
+
 @Injectable()
 
 export class httpHanldeService {
@@ -16,7 +17,10 @@ export class httpHanldeService {
         if (body.code == 1) {
             toast.present()         
             return body.data || {};
-        } else {
+        }else if (body.code == 2) {
+            toast.present()         
+            return Promise.reject({code:2});
+        }else {
             toast.present()
             return Promise.reject(body.message);
         }
@@ -30,7 +34,10 @@ export class httpHanldeService {
         });        
         if (body.code == 1) {         
             return body.data || {};
-        } else {
+        } else if (body.code == 2) {
+            toast.present()         
+            return Promise.reject({code:2});
+        }else {
             toast.present()
             return Promise.reject(body.message);
         }
@@ -41,7 +48,7 @@ export class httpHanldeService {
     }
 
     public handleError(error: any): Promise<any> {  
-        console.error(error)   
+        console.error(error)        
         return Promise.reject(error.message || error);
     }
 }

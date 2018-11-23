@@ -100,6 +100,9 @@
     // margin: -16px -16px 0;
     padding: 10px 15px;
     background: #F2F2F2;
+    .item-inner{
+        border-bottom: none !important;
+    }
 }
 .single--item--box{
     border-bottom: 0.55px solid #c8c7cc;
@@ -111,6 +114,27 @@
     }
     .object--name{
         margin-top: 0 !important;
+    }
+    .item-inner{
+        font-size: 1.3rem;
+        // ion-label{
+        //     white-space: normal;
+        //     overflow:hidden;   
+        //     text-overflow:ellipsis;
+        //     display:-webkit-box; 
+        //     -webkit-box-orient:vertical;
+        //     -webkit-line-clamp:2; 
+        // }
+        .search--result--colum{
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-bottom: 3px;
+            &:last-child{
+                padding-bottom: 0;   
+            }
+        }
     }
 }
 .no--data{

@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 export class baseConfig {
 
     //prod
-    private baseUrl = 'http://10.154.97.4:8182/app'
-    // private baseUrl = 'http://192.168.1.128:8080/app'
+    private baseUrl = 'http://10.150.152.10:8182/app'
+    // private baseUrl = 'http://192.168.0.153:8080/app'
     //debug
     // private baseUrl = '/appapi'
     //local-prod

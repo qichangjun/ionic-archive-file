@@ -7,27 +7,18 @@ import Viewer from 'viewerjs';
     templateUrl: 'previewDoc.modal.html'    
 })
 export class PreviewDocModal {
-    row: any = {}
-    docbase: string = ''
+    viewToken: any = ''
     attrLists: Array<any> = []
     constructor(
-        params: NavParams,
+        public params: NavParams,
         public viewCtrl: ViewController,
         public _baseConfig: baseConfig
-        // private loadingCtrl: LoadingController
-    ) {
-        this.row = params.get('row')
-        this.docbase = params.get('docbase')
-
+    ) {              
     }
     ngOnInit() {
-        var viewer = new Viewer(document.getElementById('images'), {
-            inline: true
-        });
-        console.log(viewer)
+        this.viewToken = this.params.get('viewToken')
+        document.getElementById('iframePreview')['src'] = 'http://10.150.152.10:7080/osprey/#!/?viewToken=' + this.viewToken
     }
-
-
 
     dismiss() {
         this.viewCtrl.dismiss(true);

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { SearchMainService } from './search-main.service';
-import { LoadingController,ModalController } from 'ionic-angular';
+import { LoadingController,ModalController,NavParams,NavController  } from 'ionic-angular';
 import { PreviewDocModal } from './modal/previewDoc/previewDoc.modal';
 import { previewPDF } from './modal/previewPDF/previewPDF';
 import { AdvanceSearchModal } from './modal/advanceSearch/advanceSearch.modal'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { LoginPage } from '../../login/login';
 @Component({
     selector: 'search-main',
     templateUrl: 'search-main.html',
@@ -31,7 +32,9 @@ export class searchMain {
         private iab: InAppBrowser,
         private _searchMainService: SearchMainService,
         private loadingCtrl: LoadingController,
-        public modalCtrl: ModalController
+        public modalCtrl: ModalController,
+        public navParams: NavParams,
+        public navCtrl: NavController
     ) {      
         this.getDocBaseLists()
         // this.getList()
@@ -54,13 +57,14 @@ export class searchMain {
             //否则获取文件列表，接口不同
             var res;
             if (!this.parameter.parentId){
-                res = await this._searchMainService.getArchivesList(this.parameter);  
+                res = await this._searchMainService.getArchivesList(this.parameter);                  
                 this.parameter.totalCount = res.pages.totalCount                        
                 this.pageCount = res.pages.totalCount/20            
                 this.pageCount =  Math.ceil(this.pageCount)          
             } else {
                 res = await this._searchMainService.getFileList(this.parameter);
-            }            
+            }     
+       
             //确认分页数量,总数除以20，向上取整
             //用于下拉分页确认下一页有无数据            
             if (event && !this.parameter.parentId){
@@ -83,11 +87,13 @@ export class searchMain {
                 this.searchResults = rows 
             }
             loading.dismiss();
-        } catch(err){
-            console.log(err)
+        } catch(err){            
             loading.dismiss();
             if (event){
                 event.complete();
+            }
+            if(err.code == 2){
+                this.navCtrl.setRoot(LoginPage)
             }
         }
         
@@ -127,17 +133,19 @@ export class searchMain {
             loading.present();
             try{
                 let info = await this._searchMainService.getElectronicRecord(row.id,this.parameter.libId)
-                // if (info.type == 'pdf' || info.type == 'PDF'){
-                //     let path = await this._searchMainService.getPdfPreviewPath(info)
-                //     const browser = this.iab.create(path);                
-                // }else{
                 let viewToken = await this._searchMainService.getPreviewToken(info)
-                const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);
-                // }        
+                // const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);      
+                this.navCtrl.push(PreviewDocModal,{
+                    viewToken : viewToken
+                })   
                 loading.dismiss();            
                 return   
-            }catch(err){
+            }catch(err){                
+                console.log(err)
                 loading.dismiss();
+                if(err.code == 2){
+                    this.navCtrl.setRoot(LoginPage)
+                }
             }
             
         }
@@ -197,6 +205,9 @@ export class searchMain {
             refresh.complete();
         } catch(err){
             refresh.complete();
+            if(err.code == 2){
+                this.navCtrl.setRoot(LoginPage)
+            }
         }
     }
 

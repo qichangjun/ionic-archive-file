@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { MenuController, Nav } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { tabsMain } from './tabs-main/tabs-main';
+import { searchMain } from './search-main/search-main';
 
 @Component({
     selector: 'main-page',
@@ -9,7 +10,7 @@ import { tabsMain } from './tabs-main/tabs-main';
 })
 export class mainPage {
     @ViewChild(Nav) nav: Nav;
-    rootPage = tabsMain;
+    rootPage = searchMain;
     pages : Array<{title:string,component:any}>
     constructor(
         public menu: MenuController

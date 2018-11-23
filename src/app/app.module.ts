@@ -36,7 +36,7 @@ import { AdvanceSearchModal } from '../pages/main-page/search-main/modal/advance
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{backButtonText:'返回'}),
     FormsModule,ReactiveFormsModule,
     CoreModule,
     HttpModule,
@@ -59,7 +59,7 @@ import { AdvanceSearchModal } from '../pages/main-page/search-main/modal/advance
     HTTP,
     StatusBar,
     SplashScreen,
-    InAppBrowser,
+    InAppBrowser,    
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

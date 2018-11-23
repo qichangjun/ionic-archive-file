@@ -93,7 +93,7 @@
     <allow-navigation href="http://126.10.9.205:8000" />
     <plugin name="cordova-plugin-document-viewer" spec="^0.9.10" />
     <allow-navigation href="http://192.168.169.176:8100" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
     <engine name="android" spec="7.1.0" />
     <engine name="ios" spec="4.5.4" />
-    <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
 </widget>
