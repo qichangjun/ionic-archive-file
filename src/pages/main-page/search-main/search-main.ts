@@ -146,6 +146,7 @@ export class searchMain {
                 if(err.code == 2){
                     this.navCtrl.setRoot(LoginPage)
                 }
+                return 
             }
             
         }
