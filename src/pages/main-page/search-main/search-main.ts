@@ -134,10 +134,10 @@ export class searchMain {
             try{
                 let info = await this._searchMainService.getElectronicRecord(row.id,this.parameter.libId)
                 let viewToken = await this._searchMainService.getPreviewToken(info)
-                // const browser = this.iab.create('http://10.154.97.4:7080/osprey/#!/?viewToken=' + viewToken);      
-                this.navCtrl.push(PreviewDocModal,{
-                    viewToken : viewToken
-                })   
+                const browser = this.iab.create('http://10.150.152.10:7080/osprey/#!/?viewToken=' + viewToken);      
+                // this.navCtrl.push(PreviewDocModal,{
+                //     viewToken : viewToken
+                // })   
                 loading.dismiss();            
                 return   
             }catch(err){                
