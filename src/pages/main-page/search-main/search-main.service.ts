@@ -54,9 +54,8 @@ export class SearchMainService {
     }
 
     async getArchivesList(parameters): Promise<any> {
-        let params = new URLSearchParams();
- 
-        params.set('keywords',parameters.keywords)
+        let params = new URLSearchParams();        
+        params.set('keywords',parameters.keywords.replace(/\s+/g, ""))
         params.set('locale','zh_CN')
         params.set('pageSize',parameters.pageSize)
         params.set('currentPage',parameters.currentPage)        
@@ -72,9 +71,8 @@ export class SearchMainService {
     }
 
     async getFileList(parameters): Promise<any> {        
-        let params = new URLSearchParams();
-
-        params.set('keywords',parameters.keywords)
+        let params = new URLSearchParams();        
+        params.set('keywords',parameters.keywords.replace(/\s+/g, ""))
         params.set('locale','zh_CN')
         params.set('pageSize',parameters.pageSize)
         params.set('currentPage',parameters.currentPage)        
